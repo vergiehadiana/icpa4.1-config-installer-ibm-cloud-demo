@@ -13,7 +13,7 @@ spec:
 
   codeReadyWorkspaces:
     # CodeReadyWorkspaces CR instance deployment is disabled by default. To enable it, set the enable value to true.
-    enable: false
+    enable: true
 
   stacks:
     # A list of repositories which are searched for stacks
