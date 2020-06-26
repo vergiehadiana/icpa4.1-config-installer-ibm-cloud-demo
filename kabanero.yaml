@@ -1,0 +1,29 @@
+apiVersion: kabanero.io/v1alpha2
+kind: Kabanero
+metadata:
+  name: kabanero
+spec:
+  # The platform version determines the desired version for all components, but those
+  # can be overridden individually as well
+  version: "0.6.1"
+
+  # A list of namespaces which the Appsody operator will watch for AppsodyApplication instances
+  targetNamespaces:
+  - kabanero
+
+  codeReadyWorkspaces:
+    # CodeReadyWorkspaces CR instance deployment is disabled by default. To enable it, set the enable value to true.
+    enable: false
+
+  stacks:
+    # A list of repositories which are searched for stacks
+    repositories:
+    - name: central
+      https:
+        url: https://github.com/kabanero-io/kabanero-stack-hub/releases/download/0.6.5/kabanero-stack-hub-index.yaml
+
+    pipelines:
+    - id: default
+      sha256: bfda9cd86f6054e8f58304c283ca571ec80435880a875ae1ade02c8ec24756ea
+      https:
+        url: https://github.com/kabanero-io/kabanero-pipelines/releases/download/0.6.2/default-kabanero-pipelines.tar.gz

@@ -1,0 +1,32 @@
+apiVersion: operator.ibm.com/v1alpha1
+kind: IBMServicesPlatform
+metadata:
+  name: default
+  namespace: ibmplatform-service
+spec:
+  version: 3.2.4
+  storageClass: your-storage-class
+  imagePullSecretRef: ibmplatform-image-pull-secret
+  adminCredentialSecretRef: admin-credential
+  roksEnabled: false
+  dedicatedNodes:
+  - your-worker-node
+  services:
+  - name: app-monitoring
+    state: present
+  - name: metering
+    state: present
+  - name: licensing
+    state: absent
+  - name: audit-logging
+    state: absent
+  - name: service-health
+    state: absent
+  - name: common-web-ui
+    state: present
+  - name: visual-webterminal
+    state: absent
+  - name: app-ingress-controller
+    state: absent
+  - name: catalog
+    state: absent
