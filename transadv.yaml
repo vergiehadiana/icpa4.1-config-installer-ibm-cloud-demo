@@ -74,10 +74,10 @@ spec:
     ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
     ##
     persistence:
-      enabled: true # default to use PV
+      enabled: false # default to use PV
       accessMode: "ReadWriteMany"
       size: 8Gi
-      useDynamicProvisioning: true
+      useDynamicProvisioning: false
 
       ## A manually managed Persistent Volume and Claim
       ## Requires persistence.enabled: true
@@ -86,7 +86,7 @@ spec:
       existingClaim: ""
 
       ##incase of minikube hostpath volume set to MANUAL
-      storageClassName: "ibmc-block-gold"
+      storageClassName: ""
 
       supplementalGroups: []
   # Default values for transformation advisor.
