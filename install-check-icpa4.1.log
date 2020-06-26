@@ -1,0 +1,93 @@
+
+Starting Check *****************************************************************
+
+Login To Cluster...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mUsing environment variables to log-in to cluster.[0m
+[0;32mLogged into "https://c107-e.us-south.containers.cloud.ibm.com:30986" as "IAM#vergie.hadiana@swgemilang.com" using the token provided.[0m
+[0;32m[0m
+[0;32mYou have access to 57 projects, the list has been suppressed. You can list all projects with 'oc projects'[0m
+[0;32m[0m
+[0;32mUsing project "default".[0m
+[0;32m[0m
+Get Cluster Server Address...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mhttps://c107-e.us-south.containers.cloud.ibm.com:30986[0m
+[0;32m[0m
+Save Cluster Server Address...
+[0;32mok[0m
+[0;32m[0m
+Check Cluster Version...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mOpenShift 4.3.23 detected.[0m
+[0;32m[0m
+Check Cluster Administrator Role...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32myes[0m
+[0;32m[0m
+Get Authorization Endpoint...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mhttps://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize[0m
+[0;32m[0m
+Save Authorization Endpoint...
+[0;32mok[0m
+[0;32m[0m
+Get Default Cluster Subdomain...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mdte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;32m[0m
+Set Cluster Subdomain...
+[0;32mok[0m
+[0;32m[0m
+Check Entitled Registry Variables...
+[0;32mok[0m
+[0;32m[0m
+Get Existing Operator Subscriptions...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32m{[0m
+[0;32m  "redhat-operators": {},[0m
+[0;32m  "certified-operators": {},[0m
+[0;32m  "community-operators": {},[0m
+[0;32m  "ibm-cp-applications-catalog": {},[0m
+[0;32m  "ibm-cp-applications-subscriptions": {}[0m
+[0;32m}[0m
+[0;32m[0m
+Set Subscriptions Properties...
+[0;32mok[0m
+[0;32m[0m
+Check Existing Elasticsearch Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing Jaeger Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing Kiali Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing OpenShift Service Mesh Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing OpenShift Serverless Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing OpenShift Pipelines Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing Appsody Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check successful ***************************************************************

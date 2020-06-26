@@ -1,0 +1,211 @@
+2020-06-26 04:50:46,565 p=17 u=root n=ansible | Executing playbook check.yaml
+2020-06-26 04:50:46,567 p=17 u=root n=ansible | Starting Check *****************************************************************
+2020-06-26 04:50:46,567 p=17 u=root n=ansible | - Check on hosts: 127.0.0.1 -
+
+2020-06-26 04:50:46,594 p=17 u=root n=ansible | Login To Cluster...
+2020-06-26 04:50:48,567 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/login.sh",
+    "delta": "0:00:01.583187",
+    "end": "2020-06-26 04:50:48.539067",
+    "rc": 0,
+    "start": "2020-06-26 04:50:46.955880",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Using environment variables to log-in to cluster.\nLogged into \"https://c107-e.us-south.containers.cloud.ibm.com:30986\" as \"IAM#vergie.hadiana@swgemilang.com\" using the token provided.\n\nYou have access to 57 projects, the list has been suppressed. You can list all projects with 'oc projects'\n\nUsing project \"default\".",
+    "stdout_lines": [
+        "Using environment variables to log-in to cluster.",
+        "Logged into \"https://c107-e.us-south.containers.cloud.ibm.com:30986\" as \"IAM#vergie.hadiana@swgemilang.com\" using the token provided.",
+        "",
+        "You have access to 57 projects, the list has been suppressed. You can list all projects with 'oc projects'",
+        "",
+        "Using project \"default\"."
+    ]
+}
+2020-06-26 04:50:48,571 p=17 u=root n=ansible | Get Cluster Server Address...
+2020-06-26 04:50:49,746 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "oc whoami --show-server",
+    "delta": "0:00:00.954194",
+    "end": "2020-06-26 04:50:49.714324",
+    "rc": 0,
+    "start": "2020-06-26 04:50:48.760130",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "https://c107-e.us-south.containers.cloud.ibm.com:30986",
+    "stdout_lines": [
+        "https://c107-e.us-south.containers.cloud.ibm.com:30986"
+    ]
+}
+2020-06-26 04:50:49,750 p=17 u=root n=ansible | Save Cluster Server Address...
+2020-06-26 04:50:49,793 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "clusterUrl": "https://c107-e.us-south.containers.cloud.ibm.com:30986"
+    },
+    "changed": false
+}
+2020-06-26 04:50:49,797 p=17 u=root n=ansible | Check Cluster Version...
+2020-06-26 04:50:51,718 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "python3 /installer/playbook/roles/openshift/scripts/check-version.py",
+    "delta": "0:00:01.708149",
+    "end": "2020-06-26 04:50:51.694015",
+    "rc": 0,
+    "start": "2020-06-26 04:50:49.985866",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "OpenShift 4.3.23 detected.",
+    "stdout_lines": [
+        "OpenShift 4.3.23 detected."
+    ]
+}
+2020-06-26 04:50:51,722 p=17 u=root n=ansible | Check Cluster Administrator Role...
+2020-06-26 04:50:53,104 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "oc auth can-i '*' '*' --all-namespaces",
+    "delta": "0:00:01.163602",
+    "end": "2020-06-26 04:50:53.047422",
+    "failed_when_result": false,
+    "rc": 0,
+    "start": "2020-06-26 04:50:51.883820",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "yes",
+    "stdout_lines": [
+        "yes"
+    ]
+}
+2020-06-26 04:50:53,108 p=17 u=root n=ansible | Get Authorization Endpoint...
+2020-06-26 04:50:54,488 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "python3 /installer/playbook/roles/openshift/scripts/get-authorization-endpoint.py",
+    "delta": "0:00:01.170018",
+    "end": "2020-06-26 04:50:54.463162",
+    "rc": 0,
+    "start": "2020-06-26 04:50:53.293144",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "https://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize",
+    "stdout_lines": [
+        "https://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize"
+    ]
+}
+2020-06-26 04:50:54,492 p=17 u=root n=ansible | Save Authorization Endpoint...
+2020-06-26 04:50:54,539 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "cluster": {
+            "authorizationEndpoint": "https://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize"
+        }
+    },
+    "changed": false
+}
+2020-06-26 04:50:54,543 p=17 u=root n=ansible | Get Default Cluster Subdomain...
+2020-06-26 04:50:56,392 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "oc get ingresses.config.openshift.io cluster --output=jsonpath='{.spec.domain}'",
+    "delta": "0:00:01.634500",
+    "end": "2020-06-26 04:50:56.368288",
+    "rc": 0,
+    "start": "2020-06-26 04:50:54.733788",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud",
+    "stdout_lines": [
+        "dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    ]
+}
+2020-06-26 04:50:56,397 p=17 u=root n=ansible | Set Cluster Subdomain...
+2020-06-26 04:50:56,443 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "clusterSubdomain": "dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    },
+    "changed": false
+}
+2020-06-26 04:50:56,447 p=17 u=root n=ansible | Check Entitled Registry Variables...
+2020-06-26 04:50:57,522 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check-registry.sh",
+    "delta": "0:00:00.861429",
+    "end": "2020-06-26 04:50:57.496887",
+    "rc": 0,
+    "start": "2020-06-26 04:50:56.635458",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:50:57,527 p=17 u=root n=ansible | Get Existing Operator Subscriptions...
+2020-06-26 04:50:59,061 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "python3 /installer/playbook/roles/catalog/scripts/get_subscriptions.py",
+    "delta": "0:00:01.313081",
+    "end": "2020-06-26 04:50:59.034538",
+    "rc": 0,
+    "start": "2020-06-26 04:50:57.721457",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "{\n  \"redhat-operators\": {},\n  \"certified-operators\": {},\n  \"community-operators\": {},\n  \"ibm-cp-applications-catalog\": {},\n  \"ibm-cp-applications-subscriptions\": {}\n}",
+    "stdout_lines": [
+        "{",
+        "  \"redhat-operators\": {},",
+        "  \"certified-operators\": {},",
+        "  \"community-operators\": {},",
+        "  \"ibm-cp-applications-catalog\": {},",
+        "  \"ibm-cp-applications-subscriptions\": {}",
+        "}"
+    ]
+}
+2020-06-26 04:50:59,066 p=17 u=root n=ansible | Set Subscriptions Properties...
+2020-06-26 04:50:59,110 p=17 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "subscriptions": {
+            "certified-operators": {},
+            "community-operators": {},
+            "ibm-cp-applications-catalog": {},
+            "ibm-cp-applications-subscriptions": {},
+            "redhat-operators": {}
+        }
+    },
+    "changed": false
+}
+2020-06-26 04:50:59,114 p=17 u=root n=ansible | Check Existing Elasticsearch Subscription...
+2020-06-26 04:50:59,153 p=17 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:50:59,157 p=17 u=root n=ansible | Check Existing Jaeger Subscription...
+2020-06-26 04:50:59,197 p=17 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:50:59,201 p=17 u=root n=ansible | Check Existing Kiali Subscription...
+2020-06-26 04:50:59,240 p=17 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:50:59,244 p=17 u=root n=ansible | Check Existing OpenShift Service Mesh Subscription...
+2020-06-26 04:50:59,288 p=17 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:50:59,292 p=17 u=root n=ansible | Check Existing OpenShift Serverless Subscription...
+2020-06-26 04:50:59,335 p=17 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:50:59,340 p=17 u=root n=ansible | Check Existing OpenShift Pipelines Subscription...
+2020-06-26 04:50:59,382 p=17 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:50:59,387 p=17 u=root n=ansible | Check Existing Appsody Subscription...
+2020-06-26 04:50:59,430 p=17 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:50:59,433 p=17 u=root n=ansible | - Play recap -
+2020-06-26 04:50:59,433 p=17 u=root n=ansible |   127.0.0.1                  : ok=12   changed=0    unreachable=0    failed=0    rescued=0    ignored=0   
+2020-06-26 04:50:59,434 p=17 u=root n=ansible | Check successful ***************************************************************

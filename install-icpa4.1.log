@@ -1,0 +1,901 @@
+[0;34mUsing /installer/ansible.cfg as config file[0m
+[0;34m[0m
+Starting Install ***************************************************************
+
+Login To Cluster...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mUsing environment variables to log-in to cluster.[0m
+[0;32mLogged into "https://c107-e.us-south.containers.cloud.ibm.com:30986" as "IAM#vergie.hadiana@swgemilang.com" using the token provided.[0m
+[0;32m[0m
+[0;32mYou have access to 57 projects, the list has been suppressed. You can list all projects with 'oc projects'[0m
+[0;32m[0m
+[0;32mUsing project "default".[0m
+[0;32m[0m
+Get Cluster Server Address...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mhttps://c107-e.us-south.containers.cloud.ibm.com:30986[0m
+[0;32m[0m
+Save Cluster Server Address...
+[0;32mok[0m
+[0;32m[0m
+Check Cluster Version...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mOpenShift 4.3.23 detected.[0m
+[0;32m[0m
+Check Cluster Administrator Role...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32myes[0m
+[0;32m[0m
+Get Authorization Endpoint...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mhttps://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize[0m
+[0;32m[0m
+Save Authorization Endpoint...
+[0;32mok[0m
+[0;32m[0m
+Get Default Cluster Subdomain...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mdte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;32m[0m
+Set Cluster Subdomain...
+[0;32mok[0m
+[0;32m[0m
+Check Entitled Registry Variables...
+[0;32mok[0m
+[0;32m[0m
+Get Existing Operator Subscriptions...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32m{[0m
+[0;32m  "redhat-operators": {},[0m
+[0;32m  "certified-operators": {},[0m
+[0;32m  "community-operators": {},[0m
+[0;32m  "ibm-cp-applications-catalog": {},[0m
+[0;32m  "ibm-cp-applications-subscriptions": {}[0m
+[0;32m}[0m
+[0;32m[0m
+Set Subscriptions Properties...
+[0;32mok[0m
+[0;32m[0m
+Check Existing Elasticsearch Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing Jaeger Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing Kiali Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing OpenShift Service Mesh Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing OpenShift Serverless Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing OpenShift Pipelines Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Check Existing Appsody Subscription...
+[0;36mskipped[0m
+[0;36m[0m
+Switch to OpenShift Marketplace Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mSwitched to openshift-marketplace project.[0m
+[0;33m[0m
+Get Default Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Set Project Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Generate Operator Registry Configuration...
+[0;33mdone[0m
+[0;33m[0m
+Create Pull Secret...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecret/icpa-pull-secret created[0m
+[0;33m[0m
+Install Operator Registry...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mdeployment.apps/ibm-cp-applications-catalog created[0m
+[0;33mservice/ibm-cp-applications-catalog created[0m
+[0;33m[0m
+Check For Operator Registry...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll ibm-cp-applications-catalog pods are running and are ready.[0m
+[0;32m[0m
+Install Catalog Source...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mcatalogsource.operators.coreos.com/ibm-cp-applications-catalog created[0m
+[0;33m[0m
+Check For Catalog Source...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mREADY[0m
+[0;33m[0m
+Install Elasticsearch Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-elasticsearch created[0m
+[0;33m[0m
+Check For Elasticsearch Operator...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-elasticsearch InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-r7pcf[0m
+[0;32m[0m
+Check install-r7pcf InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-elasticsearch ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32melasticsearch-operator.4.3.26-202006160135[0m
+[0;32m[0m
+Check elasticsearch-operator.4.3.26-202006160135 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Install Jaeger Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-jaeger created[0m
+[0;33m[0m
+Check For Jaeger Operator...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-jaeger InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-t4vx9[0m
+[0;32m[0m
+Check install-t4vx9 InstallPlan...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-jaeger ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mjaeger-operator.v1.17.3[0m
+[0;32m[0m
+Check jaeger-operator.v1.17.3 ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+Install Kiali Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-kiali-ossm created[0m
+[0;33m[0m
+Check For Kiali Operator...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-kiali-ossm InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-dhk8x[0m
+[0;32m[0m
+Check install-dhk8x InstallPlan...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-kiali-ossm ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mkiali-operator.v1.12.13[0m
+[0;32m[0m
+Check kiali-operator.v1.12.13 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Install OpenShift Service Mesh...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-servicemesh created[0m
+[0;33m[0m
+Check For OpenShift Service Mesh...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-servicemesh InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-q4lm5[0m
+[0;32m[0m
+Check install-q4lm5 InstallPlan...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-servicemesh ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mservicemeshoperator.v1.1.3[0m
+[0;32m[0m
+Check servicemeshoperator.v1.1.3 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Install Serverless Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-serverless created[0m
+[0;33m[0m
+Check for Serverless Operator...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-serverless InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-fjp95[0m
+[0;32m[0m
+Check install-fjp95 InstallPlan...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-serverless ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mserverless-operator.v1.5.0[0m
+[0;32m[0m
+Check serverless-operator.v1.5.0 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Install OpenShift Pipelines Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-openshift-pipelines created[0m
+[0;33m[0m
+Install Appsody Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-appsody created[0m
+[0;33m[0m
+Check for OpenShift Pipelines Operator...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-openshift-pipelines InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-ldqkj[0m
+[0;32m[0m
+Check install-ldqkj InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-openshift-pipelines ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mopenshift-pipelines-operator.v0.10.4[0m
+[0;32m[0m
+Check openshift-pipelines-operator.v0.10.4 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Check for Appsody Operator...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-appsody InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-xnvw7[0m
+[0;32m[0m
+Check install-xnvw7 InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-appsody ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mappsody-operator.v0.3.0[0m
+[0;32m[0m
+Check appsody-operator.v0.3.0 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Switch To Kabanero Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mCreated kabanero project.[0m
+[0;33m[0m
+Set Network Policy...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mnetworkpolicy.networking.k8s.io/allow-all created[0m
+[0;33m[0m
+Create Operator Group...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33moperatorgroup.operators.coreos.com/kabanero created[0m
+[0;33m[0m
+Install CodeReady Workspaces...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-codeready-workspaces created[0m
+[0;33m[0m
+Check for CodeReady Workspaces...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-codeready-workspaces InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-8j57l[0m
+[0;32m[0m
+Check install-8j57l InstallPlan...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-codeready-workspaces ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mcrwoperator.v2.1.1[0m
+[0;32m[0m
+Check crwoperator.v2.1.1 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Add Security Context Constraints To CodeReady Workspaces Service Account...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecuritycontextconstraints.security.openshift.io/anyuid added to: ["system:serviceaccount:kabanero:che-workspace"][0m
+[0;33m[0m[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecuritycontextconstraints.security.openshift.io/privileged added to: ["system:serviceaccount:kabanero:che-workspace"][0m
+[0;33m[0m[0;33mdone[0m
+[0;33m[0m
+Add Codewind Tekton Role...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mclusterrolebinding.rbac.authorization.k8s.io/codewind-tektonbinding created[0m
+[0;33mclusterrole.rbac.authorization.k8s.io/codewind-tekton created[0m
+[0;33m[0m
+Install Kabanero Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msubscription.operators.coreos.com/ibm-cp-applications-kabanero created[0m
+[0;33m[0m
+Check for Kabanero Operator...
+[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-kabanero InstallPlan...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32minstall-kvwxq[0m
+[0;32m[0m
+Check install-kvwxq InstallPlan...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Get ibm-cp-applications-kabanero ClusterServiceVersion...
+[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mkabanero-operator.v0.6.1[0m
+[0;32m[0m
+Check kabanero-operator.v0.6.1 ClusterServiceVersion...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+Create Kabanero Pipeline Service Account...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mserviceaccount/kabanero-pipeline created[0m
+[0;33mclusterrole.rbac.authorization.k8s.io/kabanero-pipeline-role created[0m
+[0;33mclusterrolebinding.rbac.authorization.k8s.io/kabanero-pipeline-cluster-role-binding created[0m
+[0;33m[0m
+Switch To Knative Serving Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mCreated knative-serving project.[0m
+[0;33m[0m
+Install Knative Serving...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mknativeserving.operator.knative.dev/knative-serving created[0m
+[0;33m[0m
+Check For Knative Serving...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (4 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (5 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (6 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (7 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (8 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mThe knativeserving.operator.knative.dev/knative-serving resource is ready.[0m
+[0;32m[0m
+Check Knative Serving Owner...
+[0;33mdone[0m
+[0;33m[0m
+Perform Knative Serving Update...
+[0;36mskipped[0m
+[0;36m[0m
+Switch To Tekton Pipelines Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mCreated tekton-pipelines project.[0m
+[0;33m[0m
+Create Tekton Triggers Role...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mrole.rbac.authorization.k8s.io/kabanero-trigger-role created[0m
+[0;33m[0m
+Install Tekton Webhooks Extension...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mserviceaccount/tekton-webhooks-extension created[0m
+[0;33mserviceaccount/tekton-webhooks-extension-eventlistener created[0m
+[0;33mrole.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created[0m
+[0;33mclusterrole.rbac.authorization.k8s.io/tekton-triggers-minimal created[0m
+[0;33mclusterrole.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal-cluster-powers created[0m
+[0;33mrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created[0m
+[0;33mclusterrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-eventlistener-minimal created[0m
+[0;33mclusterrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal-cluster-powers created[0m
+[0;33mservice/tekton-webhooks-extension-validator created[0m
+[0;33mservice/webhooks-extension created[0m
+[0;33mdeployment.apps/tekton-webhooks-extension-validator created[0m
+[0;33mdeployment.apps/webhooks-extension created[0m
+[0;33mtask.tekton.dev/monitor-task created[0m
+[0;33mtriggerbinding.tekton.dev/monitor-task-github-binding created[0m
+[0;33mtriggerbinding.tekton.dev/monitor-task-gitlab-binding created[0m
+[0;33mtriggertemplate.tekton.dev/monitor-task-template created[0m
+[0;33m[0m
+Check For Tekton Webhooks Extension...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll webhooks-extension pods are running.[0m
+[0;32m[0m[0;32mok[0m
+[0;32m[0m
+Install Tekton Dashboard...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mcustomresourcedefinition.apiextensions.k8s.io/extensions.dashboard.tekton.dev created[0m
+[0;33mserviceaccount/tekton-dashboard created[0m
+[0;33mclusterrole.rbac.authorization.k8s.io/tekton-dashboard-minimal created[0m
+[0;33mclusterrolebinding.rbac.authorization.k8s.io/tekton-dashboard-minimal created[0m
+[0;33mservice/tekton-dashboard created[0m
+[0;33mservice/tekton-dashboard-internal created[0m
+[0;33mdeployment.apps/tekton-dashboard created[0m
+[0;33mroute.route.openshift.io/tekton-dashboard created[0m
+[0;33mpipeline.tekton.dev/pipeline0 created[0m
+[0;33mtask.tekton.dev/pipeline0-task created[0m
+[0;33m[0m
+Check For Tekton Dashboard...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll tekton-dashboard pods are running.[0m
+[0;32m[0m[0;32mok[0m
+[0;32m[0m
+Set Network Policy...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mnetworkpolicy.networking.k8s.io/allow-all created[0m
+[0;33m[0m
+Get Tekton Dashboard Route...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mtekton-dashboard-tekton-pipelines.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;33m[0m
+set_fact...
+[0;32mok[0m
+[0;32m[0m
+Switch To Kabanero Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mSwitched to kabanero project.[0m
+[0;33m[0m
+Get Default Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Set Project Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Generate Cloud Pak For Apps Console Configuration...
+[0;33mdone[0m
+[0;33m[0m
+Create Pull Secret...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecret/icpa-pull-secret created[0m
+[0;33m[0m
+Install Cloud Pak For Apps Console...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mdeployment.apps/icpa-landing created[0m
+[0;33mservice/icpa-landing created[0m
+[0;33mroute.route.openshift.io/icpa-landing created[0m
+[0;33mserviceaccount/icpa-landing created[0m
+[0;33mclusterrolebinding.rbac.authorization.k8s.io/icpa-landing created[0m
+[0;33mclusterrole.rbac.authorization.k8s.io/icpa-landing created[0m
+[0;33mconsolelink.console.openshift.io/icpa-landing-app-menu-link created[0m
+[0;33m[0m
+Check For Cloud Pak For Apps Console...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (4 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll icpa-landing pods are running.[0m
+[0;32m[0m[0;32mok[0m
+[0;32m[0m
+Set Cloud Pak For Apps Console URL...
+[0;32mok[0m
+[0;32m[0m
+Switch To Transformation Advisor Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mCreated ta project.[0m
+[0;33m[0m
+Create Service Account...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mserviceaccount/ta-operator created[0m
+[0;33m[0m
+Create Roles...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mrole.rbac.authorization.k8s.io/ta-operator created[0m
+[0;33m[0m
+Create Role Bindings...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mrolebinding.rbac.authorization.k8s.io/ta-operator created[0m
+[0;33m[0m
+Add Security Context Constraints To User...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecuritycontextconstraints.security.openshift.io/anyuid added to: ["system:serviceaccount:ta:default"][0m
+[0;33m[0m
+Configure Transformation Advisor Service Account...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mclusterrole.rbac.authorization.k8s.io/cluster-admin added: "system:serviceaccount:ta:ta-operator"[0m
+[0;33m[0m
+Get Default Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Set Project Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Populate Transformation Advisor Operator Configuration...
+[0;33mdone[0m
+[0;33m[0m
+Create Pull Secret...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecret/icpa-pull-secret created[0m
+[0;33m[0m
+Install Transformation Advisor Custom Resource Definition...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mcustomresourcedefinition.apiextensions.k8s.io/transadvs.charts.ta.cloud.ibm.com created[0m
+[0;33m[0m
+Install Transformation Advisor Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mdeployment.apps/ta-operator created[0m
+[0;33m[0m
+Check For Transformation Advisor Operator...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll ta-operator pods are running.[0m
+[0;32m[0m
+Switch To Application Navigator Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mCreated kappnav project.[0m
+[0;33m[0m
+Delete 4.0 Application Navigator Custom Resource...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstderr: [0m
+[0;33merror: the server doesn't have a resource type "kappnav"[0m
+[0;33m[0m
+Uninstall 4.0 Application Navigator Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstderr: [0m
+[0;33mwarning: deleting cluster-scoped resources, not scoped to the provided namespace[0m
+[0;33m[0m
+Get Default Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Set Project Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Populate Application Navigator Operator Configuration...
+[0;33mdone[0m
+[0;33m[0m
+Populate Application Navigator Custom Resource...
+[0;33mdone[0m
+[0;33m[0m
+Create Pull Secret...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecret/icpa-pull-secret created[0m
+[0;33m[0m
+Install Application Navigator Operator...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mcustomresourcedefinition.apiextensions.k8s.io/kappnavs.kappnav.operator.kappnav.io created[0m
+[0;33mserviceaccount/kappnav-operator created[0m
+[0;33mclusterrole.rbac.authorization.k8s.io/kappnav-operator created[0m
+[0;33mclusterrolebinding.rbac.authorization.k8s.io/kappnav-operator created[0m
+[0;33mdeployment.apps/kappnav-operator created[0m
+[0;33m[0m
+Check For Application Navigator Operator...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll kappnav-operator pods are running.[0m
+[0;32m[0m
+Install Application Navigator Custom Resource...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mkappnav.kappnav.operator.kappnav.io/kappnav created[0m
+[0;33m[0m
+Check For Application Navigator UI...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (4 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (5 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (6 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (7 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll kappnav-ui pods are running.[0m
+[0;32m[0m
+Get Application Navigator UI Route...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mkappnav-ui-service-kappnav.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;33m[0m
+set_fact...
+[0;32mok[0m
+[0;32m[0m
+Populate Kabanero Custom Resource...
+[0;33mdone[0m
+[0;33m[0m
+Install Kabanero Custom Resource...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mkabanero.kabanero.io/kabanero created[0m
+[0;33m[0m
+Check For Kabanero CLI Service...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (4 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (5 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (6 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (7 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (8 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (9 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll kabanero-cli pods are running.[0m
+[0;32m[0m
+Switch To Transformation Advisor Project...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mSwitched to ta project.[0m
+[0;33m[0m
+Get Default Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Set Project Pull Secret...
+[0;36mskipped[0m
+[0;36m[0m
+Generate Certificate and Create Transformation Advisor Secret...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33msecret/transformation-advisor-secret created[0m
+[0;33m[0m
+[0;33mstderr: [0m
+[0;33mGenerating a 2048 bit RSA private key[0m
+[0;33m.................+++[0m
+[0;33m......................................+++[0m
+[0;33mwriting new private key to '/tmp/private.pem'[0m
+[0;33m-----[0m
+[0;33m[0m
+Load Generated Transformation Advisor Certificate...
+[0;32mok[0m
+[0;32m[0m
+Populate Transformation Advisor Custom Resource...
+[0;33mdone[0m
+[0;33m[0m
+Load Transformation Advisor Custom Resource...
+[0;32mok[0m
+[0;32m[0m
+Check Transformation Advisor Custom Resource...
+[0;32mok[0m
+[0;32m[0m
+[0;32mmsg: [0m
+[0;32mAll assertions passed[0m
+[0;32m[0m
+Install Transformation Advisor Custom Resource...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mtransadv.charts.ta.cloud.ibm.com/ta created[0m
+[0;33m[0m
+Check For Transformation Advisor UI...
+[1;30m  Retrying... (1 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (4 of 41)[0m
+[1;30m[0m[1;30m  Retrying... (5 of 41)[0m
+[1;30m[0m[0;32mok[0m
+[0;32m[0m
+[0;32mstdout: [0m
+[0;32mAll ui pods are running.[0m
+[0;32m[0m
+Check For Transformation Advisor Database...
+[1;30m  Retrying... (1 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (2 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (3 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (4 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (5 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (6 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (7 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (8 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (9 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (10 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (11 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (12 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (13 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (14 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (15 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (16 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (17 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (18 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (19 of 21)[0m
+[1;30m[0m[1;30m  Retrying... (20 of 21)[0m
+[1;30m[0m[0;31mfailed[0m
+[0;31m[0m
+[0;31mmsg: [0m
+[0;31mnon-zero return code[0m
+[0;31m[0m
+[0;31mstdout: [0m
+[0;31mThe couchdb pods are not running. There might a problem that is preventing the pods from starting, or they might require additional time to start.[0m
+[0;31m[0m
+[0;31mRun the following commands to examine the status of the pods:[0m
+[0;31moc -n "ta" describe pod "ta-4hd0yl-couchdb-67cc866cfc-jfknl"[0m
+[0;31moc -n "ta" logs "ta-4hd0yl-couchdb-67cc866cfc-jfknl" --all-containers[0m
+[0;31m[0m
+[0;31mOnce the problem is resolved or the pods start running, re-run the installer to complete the installation process.[0m
+[0;31m[0m
+Check For Transformation Advisor Server...
+[0;36mskipped[0m
+[0;36m[0m
+Get Transformation Advisor UI Route...
+[0;33mdone[0m
+[0;33m[0m
+[0;33mstdout: [0m
+[0;33mta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;33m[0m
+set_fact...
+[0;32mok[0m
+[0;32m[0m
+Mark Installation Complete...
+[0;33mdone[0m
+[0;33m[0m
+Install successful *************************************************************
+[0;32m[0m
+[0;32mInstallation complete.[0m
+[0;32m[0m
+[0;32mPlease see https://ibm-cp-applications.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud to get started and learn more about IBM Cloud Pak for Applications 4.1.1.[0m
+[0;32m[0m
+[0;32mThe pipelines dashboard is available at: https://tekton-dashboard-tekton-pipelines.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;32m[0m
+[0;32mThe IBM Transformation Advisor UI is available at: https://ta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;32m[0m
+[0;32mThe IBM Application Navigator UI is available at: https://kappnav-ui-service-kappnav.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud[0m
+[0;32m[0m

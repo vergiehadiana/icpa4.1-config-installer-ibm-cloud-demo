@@ -1,0 +1,2509 @@
+2020-06-26 04:51:00,955 p=16 u=root n=ansible | Using /installer/ansible.cfg as config file
+2020-06-26 04:51:02,445 p=16 u=root n=ansible | Executing playbook install.yaml
+2020-06-26 04:51:02,448 p=16 u=root n=ansible | Starting Install ***************************************************************
+2020-06-26 04:51:02,448 p=16 u=root n=ansible | - Install on hosts: 127.0.0.1 -
+
+2020-06-26 04:51:02,490 p=16 u=root n=ansible | Login To Cluster...
+2020-06-26 04:51:04,432 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python"
+    },
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/login.sh",
+    "delta": "0:00:01.545976",
+    "end": "2020-06-26 04:51:04.403398",
+    "rc": 0,
+    "start": "2020-06-26 04:51:02.857422",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Using environment variables to log-in to cluster.\nLogged into \"https://c107-e.us-south.containers.cloud.ibm.com:30986\" as \"IAM#vergie.hadiana@swgemilang.com\" using the token provided.\n\nYou have access to 57 projects, the list has been suppressed. You can list all projects with 'oc projects'\n\nUsing project \"default\".",
+    "stdout_lines": [
+        "Using environment variables to log-in to cluster.",
+        "Logged into \"https://c107-e.us-south.containers.cloud.ibm.com:30986\" as \"IAM#vergie.hadiana@swgemilang.com\" using the token provided.",
+        "",
+        "You have access to 57 projects, the list has been suppressed. You can list all projects with 'oc projects'",
+        "",
+        "Using project \"default\"."
+    ]
+}
+2020-06-26 04:51:04,437 p=16 u=root n=ansible | Get Cluster Server Address...
+2020-06-26 04:51:05,613 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "oc whoami --show-server",
+    "delta": "0:00:00.956007",
+    "end": "2020-06-26 04:51:05.582592",
+    "rc": 0,
+    "start": "2020-06-26 04:51:04.626585",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "https://c107-e.us-south.containers.cloud.ibm.com:30986",
+    "stdout_lines": [
+        "https://c107-e.us-south.containers.cloud.ibm.com:30986"
+    ]
+}
+2020-06-26 04:51:05,618 p=16 u=root n=ansible | Save Cluster Server Address...
+2020-06-26 04:51:05,663 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "clusterUrl": "https://c107-e.us-south.containers.cloud.ibm.com:30986"
+    },
+    "changed": false
+}
+2020-06-26 04:51:05,668 p=16 u=root n=ansible | Check Cluster Version...
+2020-06-26 04:51:07,255 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "python3 /installer/playbook/roles/openshift/scripts/check-version.py",
+    "delta": "0:00:01.377871",
+    "end": "2020-06-26 04:51:07.230090",
+    "rc": 0,
+    "start": "2020-06-26 04:51:05.852219",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "OpenShift 4.3.23 detected.",
+    "stdout_lines": [
+        "OpenShift 4.3.23 detected."
+    ]
+}
+2020-06-26 04:51:07,260 p=16 u=root n=ansible | Check Cluster Administrator Role...
+2020-06-26 04:51:08,629 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "oc auth can-i '*' '*' --all-namespaces",
+    "delta": "0:00:01.151286",
+    "end": "2020-06-26 04:51:08.573098",
+    "failed_when_result": false,
+    "rc": 0,
+    "start": "2020-06-26 04:51:07.421812",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "yes",
+    "stdout_lines": [
+        "yes"
+    ]
+}
+2020-06-26 04:51:08,634 p=16 u=root n=ansible | Get Authorization Endpoint...
+2020-06-26 04:51:10,038 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "python3 /installer/playbook/roles/openshift/scripts/get-authorization-endpoint.py",
+    "delta": "0:00:01.183240",
+    "end": "2020-06-26 04:51:10.010484",
+    "rc": 0,
+    "start": "2020-06-26 04:51:08.827244",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "https://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize",
+    "stdout_lines": [
+        "https://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize"
+    ]
+}
+2020-06-26 04:51:10,042 p=16 u=root n=ansible | Save Authorization Endpoint...
+2020-06-26 04:51:10,085 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "cluster": {
+            "authorizationEndpoint": "https://c107-e.us-south.containers.cloud.ibm.com:31635/oauth/authorize"
+        }
+    },
+    "changed": false
+}
+2020-06-26 04:51:10,091 p=16 u=root n=ansible | Get Default Cluster Subdomain...
+2020-06-26 04:51:11,840 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "oc get ingresses.config.openshift.io cluster --output=jsonpath='{.spec.domain}'",
+    "delta": "0:00:01.525519",
+    "end": "2020-06-26 04:51:11.811799",
+    "rc": 0,
+    "start": "2020-06-26 04:51:10.286280",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud",
+    "stdout_lines": [
+        "dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    ]
+}
+2020-06-26 04:51:11,845 p=16 u=root n=ansible | Set Cluster Subdomain...
+2020-06-26 04:51:11,890 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "clusterSubdomain": "dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    },
+    "changed": false
+}
+2020-06-26 04:51:11,895 p=16 u=root n=ansible | Check Entitled Registry Variables...
+2020-06-26 04:51:13,002 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check-registry.sh",
+    "delta": "0:00:00.885240",
+    "end": "2020-06-26 04:51:12.976396",
+    "rc": 0,
+    "start": "2020-06-26 04:51:12.091156",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:51:13,006 p=16 u=root n=ansible | Get Existing Operator Subscriptions...
+2020-06-26 04:51:14,486 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "cmd": "python3 /installer/playbook/roles/catalog/scripts/get_subscriptions.py",
+    "delta": "0:00:01.266441",
+    "end": "2020-06-26 04:51:14.460608",
+    "rc": 0,
+    "start": "2020-06-26 04:51:13.194167",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "{\n  \"redhat-operators\": {},\n  \"certified-operators\": {},\n  \"community-operators\": {},\n  \"ibm-cp-applications-catalog\": {},\n  \"ibm-cp-applications-subscriptions\": {}\n}",
+    "stdout_lines": [
+        "{",
+        "  \"redhat-operators\": {},",
+        "  \"certified-operators\": {},",
+        "  \"community-operators\": {},",
+        "  \"ibm-cp-applications-catalog\": {},",
+        "  \"ibm-cp-applications-subscriptions\": {}",
+        "}"
+    ]
+}
+2020-06-26 04:51:14,491 p=16 u=root n=ansible | Set Subscriptions Properties...
+2020-06-26 04:51:14,537 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "subscriptions": {
+            "certified-operators": {},
+            "community-operators": {},
+            "ibm-cp-applications-catalog": {},
+            "ibm-cp-applications-subscriptions": {},
+            "redhat-operators": {}
+        }
+    },
+    "changed": false
+}
+2020-06-26 04:51:14,542 p=16 u=root n=ansible | Check Existing Elasticsearch Subscription...
+2020-06-26 04:51:14,585 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:14,590 p=16 u=root n=ansible | Check Existing Jaeger Subscription...
+2020-06-26 04:51:14,630 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:14,636 p=16 u=root n=ansible | Check Existing Kiali Subscription...
+2020-06-26 04:51:14,677 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:14,682 p=16 u=root n=ansible | Check Existing OpenShift Service Mesh Subscription...
+2020-06-26 04:51:14,723 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:14,727 p=16 u=root n=ansible | Check Existing OpenShift Serverless Subscription...
+2020-06-26 04:51:14,771 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:14,776 p=16 u=root n=ansible | Check Existing OpenShift Pipelines Subscription...
+2020-06-26 04:51:14,819 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:14,824 p=16 u=root n=ansible | Check Existing Appsody Subscription...
+2020-06-26 04:51:14,863 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:14,868 p=16 u=root n=ansible | Switch to OpenShift Marketplace Project...
+2020-06-26 04:51:16,367 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh openshift-marketplace",
+    "delta": "0:00:01.292664",
+    "end": "2020-06-26 04:51:16.343729",
+    "rc": 0,
+    "start": "2020-06-26 04:51:15.051065",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Switched to openshift-marketplace project.",
+    "stdout_lines": [
+        "Switched to openshift-marketplace project."
+    ]
+}
+2020-06-26 04:51:16,372 p=16 u=root n=ansible | Get Default Pull Secret...
+2020-06-26 04:51:16,416 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:16,421 p=16 u=root n=ansible | Set Project Pull Secret...
+2020-06-26 04:51:16,465 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:51:16,470 p=16 u=root n=ansible | Generate Operator Registry Configuration...
+2020-06-26 04:51:17,107 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "checksum": "a436e6cc8856cad6d0ce9b065907216f76873bf1",
+    "dest": "/tmp/operator-registry.yaml",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "50a3d6e2af9a49d90d6c84d1c89e7bd1",
+    "mode": "0644",
+    "owner": "root",
+    "size": 2593,
+    "src": "/root/.ansible/tmp/ansible-tmp-1593147076.509506-214809372100448/source",
+    "state": "file",
+    "uid": 0
+}
+2020-06-26 04:51:17,112 p=16 u=root n=ansible | Create Pull Secret...
+2020-06-26 04:51:18,843 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_pull_secret.sh openshift-marketplace icpa-pull-secret",
+    "delta": "0:00:01.500396",
+    "end": "2020-06-26 04:51:18.819961",
+    "rc": 0,
+    "start": "2020-06-26 04:51:17.319565",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "secret/icpa-pull-secret created",
+    "stdout_lines": [
+        "secret/icpa-pull-secret created"
+    ]
+}
+2020-06-26 04:51:18,848 p=16 u=root n=ansible | Install Operator Registry...
+2020-06-26 04:51:20,891 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /tmp/operator-registry.yaml",
+    "delta": "0:00:01.860750",
+    "end": "2020-06-26 04:51:20.864259",
+    "rc": 0,
+    "start": "2020-06-26 04:51:19.003509",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "deployment.apps/ibm-cp-applications-catalog created\nservice/ibm-cp-applications-catalog created",
+    "stdout_lines": [
+        "deployment.apps/ibm-cp-applications-catalog created",
+        "service/ibm-cp-applications-catalog created"
+    ]
+}
+2020-06-26 04:51:20,896 p=16 u=root n=ansible | Check For Operator Registry...
+2020-06-26 04:51:22,308 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:51:29,673 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:51:37,027 p=16 u=root n=ansible |   Retrying... (3 of 41)
+2020-06-26 04:51:44,403 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 4,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_ready.sh openshift-marketplace olm.catalogSource=ibm-cp-applications-catalog ibm-cp-applications-catalog",
+    "delta": "0:00:01.219659",
+    "end": "2020-06-26 04:51:44.374068",
+    "rc": 0,
+    "start": "2020-06-26 04:51:43.154409",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All ibm-cp-applications-catalog pods are running and are ready.",
+    "stdout_lines": [
+        "All ibm-cp-applications-catalog pods are running and are ready."
+    ]
+}
+2020-06-26 04:51:44,407 p=16 u=root n=ansible | Install Catalog Source...
+2020-06-26 04:51:46,266 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/catalog/templates/catalogsource.yaml",
+    "delta": "0:00:01.636832",
+    "end": "2020-06-26 04:51:46.241401",
+    "rc": 0,
+    "start": "2020-06-26 04:51:44.604569",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "catalogsource.operators.coreos.com/ibm-cp-applications-catalog created",
+    "stdout_lines": [
+        "catalogsource.operators.coreos.com/ibm-cp-applications-catalog created"
+    ]
+}
+2020-06-26 04:51:46,271 p=16 u=root n=ansible | Check For Catalog Source...
+2020-06-26 04:51:47,708 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "attempts": 1,
+    "changed": true,
+    "cmd": "oc get catalogsource ibm-cp-applications-catalog -n openshift-marketplace --output=jsonpath={.status.connectionState.lastObservedState}",
+    "delta": "0:00:01.208970",
+    "end": "2020-06-26 04:51:47.677176",
+    "rc": 0,
+    "start": "2020-06-26 04:51:46.468206",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "READY",
+    "stdout_lines": [
+        "READY"
+    ]
+}
+2020-06-26 04:51:47,713 p=16 u=root n=ansible | Install Elasticsearch Operator...
+2020-06-26 04:51:50,400 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/servicemesh/templates/subscriptions.yaml --selector kabanero.io/install=elasticsearch",
+    "delta": "0:00:02.469222",
+    "end": "2020-06-26 04:51:50.375823",
+    "rc": 0,
+    "start": "2020-06-26 04:51:47.906601",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-elasticsearch created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-elasticsearch created"
+    ]
+}
+2020-06-26 04:51:50,405 p=16 u=root n=ansible | Check For Elasticsearch Operator...
+2020-06-26 04:51:50,445 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:51:50,497 p=16 u=root n=ansible | Get ibm-cp-applications-elasticsearch InstallPlan...
+2020-06-26 04:51:51,918 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-elasticsearch -n openshift-operators --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.222892",
+    "end": "2020-06-26 04:51:51.890065",
+    "rc": 0,
+    "start": "2020-06-26 04:51:50.667173",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-r7pcf",
+    "stdout_lines": [
+        "install-r7pcf"
+    ]
+}
+2020-06-26 04:51:51,926 p=16 u=root n=ansible | Check install-r7pcf InstallPlan...
+2020-06-26 04:51:53,386 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'openshift-operators' 'install-r7pcf'",
+    "delta": "0:00:01.254298",
+    "end": "2020-06-26 04:51:53.356522",
+    "rc": 0,
+    "start": "2020-06-26 04:51:52.102224",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:51:53,393 p=16 u=root n=ansible | Get ibm-cp-applications-elasticsearch ClusterServiceVersion...
+2020-06-26 04:51:54,782 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-elasticsearch -n openshift-operators --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.186153",
+    "end": "2020-06-26 04:51:54.749968",
+    "rc": 0,
+    "start": "2020-06-26 04:51:53.563815",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "elasticsearch-operator.4.3.26-202006160135",
+    "stdout_lines": [
+        "elasticsearch-operator.4.3.26-202006160135"
+    ]
+}
+2020-06-26 04:51:54,789 p=16 u=root n=ansible | Check elasticsearch-operator.4.3.26-202006160135 ClusterServiceVersion...
+2020-06-26 04:51:56,160 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:52:03,843 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'openshift-operators' 'elasticsearch-operator.4.3.26-202006160135'",
+    "delta": "0:00:01.535972",
+    "end": "2020-06-26 04:52:03.817450",
+    "rc": 0,
+    "start": "2020-06-26 04:52:02.281478",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:52:03,848 p=16 u=root n=ansible | Install Jaeger Operator...
+2020-06-26 04:52:05,732 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/servicemesh/templates/subscriptions.yaml --selector kabanero.io/install=jaeger",
+    "delta": "0:00:01.697130",
+    "end": "2020-06-26 04:52:05.708716",
+    "rc": 0,
+    "start": "2020-06-26 04:52:04.011586",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-jaeger created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-jaeger created"
+    ]
+}
+2020-06-26 04:52:05,736 p=16 u=root n=ansible | Check For Jaeger Operator...
+2020-06-26 04:52:05,754 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:52:05,780 p=16 u=root n=ansible | Get ibm-cp-applications-jaeger InstallPlan...
+2020-06-26 04:52:07,161 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-jaeger -n openshift-operators --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.198841",
+    "end": "2020-06-26 04:52:07.134552",
+    "rc": 0,
+    "start": "2020-06-26 04:52:05.935711",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-t4vx9",
+    "stdout_lines": [
+        "install-t4vx9"
+    ]
+}
+2020-06-26 04:52:07,167 p=16 u=root n=ansible | Check install-t4vx9 InstallPlan...
+2020-06-26 04:52:08,557 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:52:15,986 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'openshift-operators' 'install-t4vx9'",
+    "delta": "0:00:01.279780",
+    "end": "2020-06-26 04:52:15.956781",
+    "rc": 0,
+    "start": "2020-06-26 04:52:14.677001",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:52:15,994 p=16 u=root n=ansible | Get ibm-cp-applications-jaeger ClusterServiceVersion...
+2020-06-26 04:52:17,419 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-jaeger -n openshift-operators --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.220167",
+    "end": "2020-06-26 04:52:17.385631",
+    "rc": 0,
+    "start": "2020-06-26 04:52:16.165464",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "jaeger-operator.v1.17.3",
+    "stdout_lines": [
+        "jaeger-operator.v1.17.3"
+    ]
+}
+2020-06-26 04:52:17,426 p=16 u=root n=ansible | Check jaeger-operator.v1.17.3 ClusterServiceVersion...
+2020-06-26 04:52:18,813 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'openshift-operators' 'jaeger-operator.v1.17.3'",
+    "delta": "0:00:01.184657",
+    "end": "2020-06-26 04:52:18.781602",
+    "rc": 0,
+    "start": "2020-06-26 04:52:17.596945",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:52:18,818 p=16 u=root n=ansible | Install Kiali Operator...
+2020-06-26 04:52:20,674 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/servicemesh/templates/subscriptions.yaml --selector kabanero.io/install=kiali-ossm",
+    "delta": "0:00:01.660609",
+    "end": "2020-06-26 04:52:20.647649",
+    "rc": 0,
+    "start": "2020-06-26 04:52:18.987040",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-kiali-ossm created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-kiali-ossm created"
+    ]
+}
+2020-06-26 04:52:20,679 p=16 u=root n=ansible | Check For Kiali Operator...
+2020-06-26 04:52:20,699 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:52:20,730 p=16 u=root n=ansible | Get ibm-cp-applications-kiali-ossm InstallPlan...
+2020-06-26 04:52:22,092 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-kiali-ossm -n openshift-operators --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.158715",
+    "end": "2020-06-26 04:52:22.062155",
+    "rc": 0,
+    "start": "2020-06-26 04:52:20.903440",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-dhk8x",
+    "stdout_lines": [
+        "install-dhk8x"
+    ]
+}
+2020-06-26 04:52:22,100 p=16 u=root n=ansible | Check install-dhk8x InstallPlan...
+2020-06-26 04:52:23,514 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:52:30,879 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'openshift-operators' 'install-dhk8x'",
+    "delta": "0:00:01.216557",
+    "end": "2020-06-26 04:52:30.850804",
+    "rc": 0,
+    "start": "2020-06-26 04:52:29.634247",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:52:30,885 p=16 u=root n=ansible | Get ibm-cp-applications-kiali-ossm ClusterServiceVersion...
+2020-06-26 04:52:32,210 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-kiali-ossm -n openshift-operators --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.130598",
+    "end": "2020-06-26 04:52:32.180815",
+    "rc": 0,
+    "start": "2020-06-26 04:52:31.050217",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "kiali-operator.v1.12.13",
+    "stdout_lines": [
+        "kiali-operator.v1.12.13"
+    ]
+}
+2020-06-26 04:52:32,217 p=16 u=root n=ansible | Check kiali-operator.v1.12.13 ClusterServiceVersion...
+2020-06-26 04:52:33,635 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:52:41,020 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:52:48,398 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 3,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'openshift-operators' 'kiali-operator.v1.12.13'",
+    "delta": "0:00:01.226945",
+    "end": "2020-06-26 04:52:48.369770",
+    "rc": 0,
+    "start": "2020-06-26 04:52:47.142825",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:52:48,402 p=16 u=root n=ansible | Install OpenShift Service Mesh...
+2020-06-26 04:52:50,352 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/servicemesh/templates/subscriptions.yaml --selector kabanero.io/install=servicemesh",
+    "delta": "0:00:01.765970",
+    "end": "2020-06-26 04:52:50.326017",
+    "rc": 0,
+    "start": "2020-06-26 04:52:48.560047",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-servicemesh created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-servicemesh created"
+    ]
+}
+2020-06-26 04:52:50,357 p=16 u=root n=ansible | Check For OpenShift Service Mesh...
+2020-06-26 04:52:50,375 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:52:50,404 p=16 u=root n=ansible | Get ibm-cp-applications-servicemesh InstallPlan...
+2020-06-26 04:52:51,778 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-servicemesh -n openshift-operators --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.171747",
+    "end": "2020-06-26 04:52:51.746559",
+    "rc": 0,
+    "start": "2020-06-26 04:52:50.574812",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-q4lm5",
+    "stdout_lines": [
+        "install-q4lm5"
+    ]
+}
+2020-06-26 04:52:51,786 p=16 u=root n=ansible | Check install-q4lm5 InstallPlan...
+2020-06-26 04:52:53,191 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:53:00,567 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'openshift-operators' 'install-q4lm5'",
+    "delta": "0:00:01.226805",
+    "end": "2020-06-26 04:53:00.540172",
+    "rc": 0,
+    "start": "2020-06-26 04:52:59.313367",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:53:00,574 p=16 u=root n=ansible | Get ibm-cp-applications-servicemesh ClusterServiceVersion...
+2020-06-26 04:53:02,109 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-servicemesh -n openshift-operators --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.331673",
+    "end": "2020-06-26 04:53:02.076001",
+    "rc": 0,
+    "start": "2020-06-26 04:53:00.744328",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "servicemeshoperator.v1.1.3",
+    "stdout_lines": [
+        "servicemeshoperator.v1.1.3"
+    ]
+}
+2020-06-26 04:53:02,116 p=16 u=root n=ansible | Check servicemeshoperator.v1.1.3 ClusterServiceVersion...
+2020-06-26 04:53:03,625 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:53:11,083 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'openshift-operators' 'servicemeshoperator.v1.1.3'",
+    "delta": "0:00:01.293619",
+    "end": "2020-06-26 04:53:11.052913",
+    "rc": 0,
+    "start": "2020-06-26 04:53:09.759294",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:53:11,088 p=16 u=root n=ansible | Install Serverless Operator...
+2020-06-26 04:53:15,051 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/kabanero-subscriptions.yaml --selector kabanero.io/install=serverless",
+    "delta": "0:00:03.752048",
+    "end": "2020-06-26 04:53:15.025591",
+    "rc": 0,
+    "start": "2020-06-26 04:53:11.273543",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-serverless created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-serverless created"
+    ]
+}
+2020-06-26 04:53:15,056 p=16 u=root n=ansible | Check for Serverless Operator...
+2020-06-26 04:53:15,076 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:53:15,116 p=16 u=root n=ansible | Get ibm-cp-applications-serverless InstallPlan...
+2020-06-26 04:53:16,474 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-serverless -n openshift-operators --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.150943",
+    "end": "2020-06-26 04:53:16.446114",
+    "rc": 0,
+    "start": "2020-06-26 04:53:15.295171",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-fjp95",
+    "stdout_lines": [
+        "install-fjp95"
+    ]
+}
+2020-06-26 04:53:16,481 p=16 u=root n=ansible | Check install-fjp95 InstallPlan...
+2020-06-26 04:53:17,866 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:53:25,391 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'openshift-operators' 'install-fjp95'",
+    "delta": "0:00:01.380697",
+    "end": "2020-06-26 04:53:25.360775",
+    "rc": 0,
+    "start": "2020-06-26 04:53:23.980078",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:53:25,398 p=16 u=root n=ansible | Get ibm-cp-applications-serverless ClusterServiceVersion...
+2020-06-26 04:53:26,814 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-serverless -n openshift-operators --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.206357",
+    "end": "2020-06-26 04:53:26.783907",
+    "rc": 0,
+    "start": "2020-06-26 04:53:25.577550",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "serverless-operator.v1.5.0",
+    "stdout_lines": [
+        "serverless-operator.v1.5.0"
+    ]
+}
+2020-06-26 04:53:26,822 p=16 u=root n=ansible | Check serverless-operator.v1.5.0 ClusterServiceVersion...
+2020-06-26 04:53:28,295 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:53:35,637 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:53:43,065 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 3,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'openshift-operators' 'serverless-operator.v1.5.0'",
+    "delta": "0:00:01.281517",
+    "end": "2020-06-26 04:53:43.035599",
+    "rc": 0,
+    "start": "2020-06-26 04:53:41.754082",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:53:43,070 p=16 u=root n=ansible | Install OpenShift Pipelines Operator...
+2020-06-26 04:53:45,023 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/kabanero-subscriptions.yaml --selector kabanero.io/install=openshift-pipelines",
+    "delta": "0:00:01.757747",
+    "end": "2020-06-26 04:53:44.997991",
+    "rc": 0,
+    "start": "2020-06-26 04:53:43.240244",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-openshift-pipelines created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-openshift-pipelines created"
+    ]
+}
+2020-06-26 04:53:45,028 p=16 u=root n=ansible | Install Appsody Operator...
+2020-06-26 04:53:47,723 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/kabanero-subscriptions.yaml --selector kabanero.io/install=appsody",
+    "delta": "0:00:02.511222",
+    "end": "2020-06-26 04:53:47.697006",
+    "rc": 0,
+    "start": "2020-06-26 04:53:45.185784",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-appsody created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-appsody created"
+    ]
+}
+2020-06-26 04:53:47,728 p=16 u=root n=ansible | Check for OpenShift Pipelines Operator...
+2020-06-26 04:53:47,746 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:53:47,787 p=16 u=root n=ansible | Get ibm-cp-applications-openshift-pipelines InstallPlan...
+2020-06-26 04:53:49,172 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-openshift-pipelines -n openshift-operators --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.184633",
+    "end": "2020-06-26 04:53:49.142015",
+    "rc": 0,
+    "start": "2020-06-26 04:53:47.957382",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-ldqkj",
+    "stdout_lines": [
+        "install-ldqkj"
+    ]
+}
+2020-06-26 04:53:49,178 p=16 u=root n=ansible | Check install-ldqkj InstallPlan...
+2020-06-26 04:53:50,602 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'openshift-operators' 'install-ldqkj'",
+    "delta": "0:00:01.225686",
+    "end": "2020-06-26 04:53:50.571170",
+    "rc": 0,
+    "start": "2020-06-26 04:53:49.345484",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:53:50,609 p=16 u=root n=ansible | Get ibm-cp-applications-openshift-pipelines ClusterServiceVersion...
+2020-06-26 04:53:51,969 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:53:59,310 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-openshift-pipelines -n openshift-operators --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.199957",
+    "end": "2020-06-26 04:53:59.281071",
+    "rc": 0,
+    "start": "2020-06-26 04:53:58.081114",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "openshift-pipelines-operator.v0.10.4",
+    "stdout_lines": [
+        "openshift-pipelines-operator.v0.10.4"
+    ]
+}
+2020-06-26 04:53:59,317 p=16 u=root n=ansible | Check openshift-pipelines-operator.v0.10.4 ClusterServiceVersion...
+2020-06-26 04:54:00,737 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:54:08,097 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'openshift-operators' 'openshift-pipelines-operator.v0.10.4'",
+    "delta": "0:00:01.213390",
+    "end": "2020-06-26 04:54:08.068978",
+    "rc": 0,
+    "start": "2020-06-26 04:54:06.855588",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:54:08,102 p=16 u=root n=ansible | Check for Appsody Operator...
+2020-06-26 04:54:08,121 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:54:08,165 p=16 u=root n=ansible | Get ibm-cp-applications-appsody InstallPlan...
+2020-06-26 04:54:09,536 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-appsody -n openshift-operators --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.170121",
+    "end": "2020-06-26 04:54:09.506826",
+    "rc": 0,
+    "start": "2020-06-26 04:54:08.336705",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-xnvw7",
+    "stdout_lines": [
+        "install-xnvw7"
+    ]
+}
+2020-06-26 04:54:09,543 p=16 u=root n=ansible | Check install-xnvw7 InstallPlan...
+2020-06-26 04:54:11,044 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'openshift-operators' 'install-xnvw7'",
+    "delta": "0:00:01.297549",
+    "end": "2020-06-26 04:54:11.013202",
+    "rc": 0,
+    "start": "2020-06-26 04:54:09.715653",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:54:11,051 p=16 u=root n=ansible | Get ibm-cp-applications-appsody ClusterServiceVersion...
+2020-06-26 04:54:12,437 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-appsody -n openshift-operators --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.183178",
+    "end": "2020-06-26 04:54:12.403442",
+    "rc": 0,
+    "start": "2020-06-26 04:54:11.220264",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "appsody-operator.v0.3.0",
+    "stdout_lines": [
+        "appsody-operator.v0.3.0"
+    ]
+}
+2020-06-26 04:54:12,444 p=16 u=root n=ansible | Check appsody-operator.v0.3.0 ClusterServiceVersion...
+2020-06-26 04:54:13,809 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:54:21,197 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'openshift-operators' 'appsody-operator.v0.3.0'",
+    "delta": "0:00:01.246048",
+    "end": "2020-06-26 04:54:21.168784",
+    "rc": 0,
+    "start": "2020-06-26 04:54:19.922736",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:54:21,201 p=16 u=root n=ansible | Switch To Kabanero Project...
+2020-06-26 04:54:24,129 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh kabanero",
+    "delta": "0:00:02.734025",
+    "end": "2020-06-26 04:54:24.103542",
+    "rc": 0,
+    "start": "2020-06-26 04:54:21.369517",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Created kabanero project.",
+    "stdout_lines": [
+        "Created kabanero project."
+    ]
+}
+2020-06-26 04:54:24,134 p=16 u=root n=ansible | Set Network Policy...
+2020-06-26 04:54:25,978 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -n kabanero -f /installer/playbook/roles/common/templates/allow-all-network-policy.yaml",
+    "delta": "0:00:01.644262",
+    "end": "2020-06-26 04:54:25.951911",
+    "rc": 0,
+    "start": "2020-06-26 04:54:24.307649",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "networkpolicy.networking.k8s.io/allow-all created",
+    "stdout_lines": [
+        "networkpolicy.networking.k8s.io/allow-all created"
+    ]
+}
+2020-06-26 04:54:25,982 p=16 u=root n=ansible | Create Operator Group...
+2020-06-26 04:54:27,916 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/kabanero-subscriptions.yaml --selector kabanero.io/install=operatorgroup",
+    "delta": "0:00:01.742931",
+    "end": "2020-06-26 04:54:27.893484",
+    "rc": 0,
+    "start": "2020-06-26 04:54:26.150553",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "operatorgroup.operators.coreos.com/kabanero created",
+    "stdout_lines": [
+        "operatorgroup.operators.coreos.com/kabanero created"
+    ]
+}
+2020-06-26 04:54:27,921 p=16 u=root n=ansible | Install CodeReady Workspaces...
+2020-06-26 04:54:29,779 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/kabanero-subscriptions.yaml --selector kabanero.io/install=codeready",
+    "delta": "0:00:01.673852",
+    "end": "2020-06-26 04:54:29.754571",
+    "rc": 0,
+    "start": "2020-06-26 04:54:28.080719",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-codeready-workspaces created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-codeready-workspaces created"
+    ]
+}
+2020-06-26 04:54:29,784 p=16 u=root n=ansible | Check for CodeReady Workspaces...
+2020-06-26 04:54:29,798 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:54:29,823 p=16 u=root n=ansible | Get ibm-cp-applications-codeready-workspaces InstallPlan...
+2020-06-26 04:54:31,221 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-codeready-workspaces -n kabanero --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.195913",
+    "end": "2020-06-26 04:54:31.192719",
+    "rc": 0,
+    "start": "2020-06-26 04:54:29.996806",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-8j57l",
+    "stdout_lines": [
+        "install-8j57l"
+    ]
+}
+2020-06-26 04:54:31,228 p=16 u=root n=ansible | Check install-8j57l InstallPlan...
+2020-06-26 04:54:32,795 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:54:40,211 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'kabanero' 'install-8j57l'",
+    "delta": "0:00:01.268542",
+    "end": "2020-06-26 04:54:40.183739",
+    "rc": 0,
+    "start": "2020-06-26 04:54:38.915197",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:54:40,218 p=16 u=root n=ansible | Get ibm-cp-applications-codeready-workspaces ClusterServiceVersion...
+2020-06-26 04:54:41,581 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-codeready-workspaces -n kabanero --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.158793",
+    "end": "2020-06-26 04:54:41.549412",
+    "rc": 0,
+    "start": "2020-06-26 04:54:40.390619",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "crwoperator.v2.1.1",
+    "stdout_lines": [
+        "crwoperator.v2.1.1"
+    ]
+}
+2020-06-26 04:54:41,589 p=16 u=root n=ansible | Check crwoperator.v2.1.1 ClusterServiceVersion...
+2020-06-26 04:54:43,052 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:54:50,484 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'kabanero' 'crwoperator.v2.1.1'",
+    "delta": "0:00:01.277910",
+    "end": "2020-06-26 04:54:50.452338",
+    "rc": 0,
+    "start": "2020-06-26 04:54:49.174428",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:54:50,489 p=16 u=root n=ansible | Add Security Context Constraints To CodeReady Workspaces Service Account...
+2020-06-26 04:54:52,907 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "ansible_loop_var": "item",
+    "changed": true,
+    "cmd": "oc adm policy add-scc-to-user anyuid system:serviceaccount:kabanero:che-workspace",
+    "delta": "0:00:02.213743",
+    "end": "2020-06-26 04:54:52.875770",
+    "item": "anyuid",
+    "rc": 0,
+    "start": "2020-06-26 04:54:50.662027",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "securitycontextconstraints.security.openshift.io/anyuid added to: [\"system:serviceaccount:kabanero:che-workspace\"]",
+    "stdout_lines": [
+        "securitycontextconstraints.security.openshift.io/anyuid added to: [\"system:serviceaccount:kabanero:che-workspace\"]"
+    ]
+}
+2020-06-26 04:54:54,265 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "ansible_loop_var": "item",
+    "changed": true,
+    "cmd": "oc adm policy add-scc-to-user privileged system:serviceaccount:kabanero:che-workspace",
+    "delta": "0:00:01.210846",
+    "end": "2020-06-26 04:54:54.237593",
+    "item": "privileged",
+    "rc": 0,
+    "start": "2020-06-26 04:54:53.026747",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "securitycontextconstraints.security.openshift.io/privileged added to: [\"system:serviceaccount:kabanero:che-workspace\"]",
+    "stdout_lines": [
+        "securitycontextconstraints.security.openshift.io/privileged added to: [\"system:serviceaccount:kabanero:che-workspace\"]"
+    ]
+}
+2020-06-26 04:54:54,267 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "msg": "All items completed",
+    "results": [
+        {
+            "ansible_loop_var": "item",
+            "changed": true,
+            "cmd": "oc adm policy add-scc-to-user anyuid system:serviceaccount:kabanero:che-workspace",
+            "delta": "0:00:02.213743",
+            "end": "2020-06-26 04:54:52.875770",
+            "failed": false,
+            "invocation": {
+                "module_args": {
+                    "_raw_params": "oc adm policy add-scc-to-user anyuid system:serviceaccount:kabanero:che-workspace",
+                    "_uses_shell": true,
+                    "argv": null,
+                    "chdir": null,
+                    "creates": null,
+                    "executable": null,
+                    "removes": null,
+                    "stdin": null,
+                    "stdin_add_newline": true,
+                    "strip_empty_ends": true,
+                    "warn": true
+                }
+            },
+            "item": "anyuid",
+            "rc": 0,
+            "start": "2020-06-26 04:54:50.662027",
+            "stderr": "",
+            "stderr_lines": [],
+            "stdout": "securitycontextconstraints.security.openshift.io/anyuid added to: [\"system:serviceaccount:kabanero:che-workspace\"]",
+            "stdout_lines": [
+                "securitycontextconstraints.security.openshift.io/anyuid added to: [\"system:serviceaccount:kabanero:che-workspace\"]"
+            ]
+        },
+        {
+            "ansible_loop_var": "item",
+            "changed": true,
+            "cmd": "oc adm policy add-scc-to-user privileged system:serviceaccount:kabanero:che-workspace",
+            "delta": "0:00:01.210846",
+            "end": "2020-06-26 04:54:54.237593",
+            "failed": false,
+            "invocation": {
+                "module_args": {
+                    "_raw_params": "oc adm policy add-scc-to-user privileged system:serviceaccount:kabanero:che-workspace",
+                    "_uses_shell": true,
+                    "argv": null,
+                    "chdir": null,
+                    "creates": null,
+                    "executable": null,
+                    "removes": null,
+                    "stdin": null,
+                    "stdin_add_newline": true,
+                    "strip_empty_ends": true,
+                    "warn": true
+                }
+            },
+            "item": "privileged",
+            "rc": 0,
+            "start": "2020-06-26 04:54:53.026747",
+            "stderr": "",
+            "stderr_lines": [],
+            "stdout": "securitycontextconstraints.security.openshift.io/privileged added to: [\"system:serviceaccount:kabanero:che-workspace\"]",
+            "stdout_lines": [
+                "securitycontextconstraints.security.openshift.io/privileged added to: [\"system:serviceaccount:kabanero:che-workspace\"]"
+            ]
+        }
+    ]
+}
+2020-06-26 04:54:54,271 p=16 u=root n=ansible | Add Codewind Tekton Role...
+2020-06-26 04:54:56,168 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -n kabanero -f /installer/playbook/roles/kabanero/templates/kabanero-codewind-tekton.yaml",
+    "delta": "0:00:01.708020",
+    "end": "2020-06-26 04:54:56.143982",
+    "rc": 0,
+    "start": "2020-06-26 04:54:54.435962",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "clusterrolebinding.rbac.authorization.k8s.io/codewind-tektonbinding created\nclusterrole.rbac.authorization.k8s.io/codewind-tekton created",
+    "stdout_lines": [
+        "clusterrolebinding.rbac.authorization.k8s.io/codewind-tektonbinding created",
+        "clusterrole.rbac.authorization.k8s.io/codewind-tekton created"
+    ]
+}
+2020-06-26 04:54:56,173 p=16 u=root n=ansible | Install Kabanero Operator...
+2020-06-26 04:54:58,068 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/kabanero-subscriptions.yaml --selector kabanero.io/install=kabanero",
+    "delta": "0:00:01.702775",
+    "end": "2020-06-26 04:54:58.042210",
+    "rc": 0,
+    "start": "2020-06-26 04:54:56.339435",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "subscription.operators.coreos.com/ibm-cp-applications-kabanero created",
+    "stdout_lines": [
+        "subscription.operators.coreos.com/ibm-cp-applications-kabanero created"
+    ]
+}
+2020-06-26 04:54:58,073 p=16 u=root n=ansible | Check for Kabanero Operator...
+2020-06-26 04:54:58,085 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "include_args": {
+        "name": "common",
+        "tasks_from": "check-operator"
+    }
+}
+2020-06-26 04:54:58,129 p=16 u=root n=ansible | Get ibm-cp-applications-kabanero InstallPlan...
+2020-06-26 04:54:59,500 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-kabanero -n kabanero --output=jsonpath={.status.installPlanRef.name}",
+    "delta": "0:00:01.160189",
+    "end": "2020-06-26 04:54:59.468618",
+    "rc": 0,
+    "start": "2020-06-26 04:54:58.308429",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "install-kvwxq",
+    "stdout_lines": [
+        "install-kvwxq"
+    ]
+}
+2020-06-26 04:54:59,507 p=16 u=root n=ansible | Check install-kvwxq InstallPlan...
+2020-06-26 04:55:00,979 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:55:08,447 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_installplan.sh 'kabanero' 'install-kvwxq'",
+    "delta": "0:00:01.311242",
+    "end": "2020-06-26 04:55:08.416346",
+    "rc": 0,
+    "start": "2020-06-26 04:55:07.105104",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:55:08,454 p=16 u=root n=ansible | Get ibm-cp-applications-kabanero ClusterServiceVersion...
+2020-06-26 04:55:09,906 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 1,
+    "changed": false,
+    "cmd": "oc get subscription ibm-cp-applications-kabanero -n kabanero --output=jsonpath={.status.installedCSV}",
+    "delta": "0:00:01.246387",
+    "end": "2020-06-26 04:55:09.874524",
+    "rc": 0,
+    "start": "2020-06-26 04:55:08.628137",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "kabanero-operator.v0.6.1",
+    "stdout_lines": [
+        "kabanero-operator.v0.6.1"
+    ]
+}
+2020-06-26 04:55:09,913 p=16 u=root n=ansible | Check kabanero-operator.v0.6.1 ClusterServiceVersion...
+2020-06-26 04:55:11,447 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:55:18,835 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_csv.sh 'kabanero' 'kabanero-operator.v0.6.1'",
+    "delta": "0:00:01.241175",
+    "end": "2020-06-26 04:55:18.807951",
+    "rc": 0,
+    "start": "2020-06-26 04:55:17.566776",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:55:18,839 p=16 u=root n=ansible | Create Kabanero Pipeline Service Account...
+2020-06-26 04:55:20,821 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/pipeline-sa.yaml --selector kabanero.io/install=24-pipeline-sa",
+    "delta": "0:00:01.794012",
+    "end": "2020-06-26 04:55:20.793912",
+    "rc": 0,
+    "start": "2020-06-26 04:55:18.999900",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "serviceaccount/kabanero-pipeline created\nclusterrole.rbac.authorization.k8s.io/kabanero-pipeline-role created\nclusterrolebinding.rbac.authorization.k8s.io/kabanero-pipeline-cluster-role-binding created",
+    "stdout_lines": [
+        "serviceaccount/kabanero-pipeline created",
+        "clusterrole.rbac.authorization.k8s.io/kabanero-pipeline-role created",
+        "clusterrolebinding.rbac.authorization.k8s.io/kabanero-pipeline-cluster-role-binding created"
+    ]
+}
+2020-06-26 04:55:20,826 p=16 u=root n=ansible | Switch To Knative Serving Project...
+2020-06-26 04:55:23,873 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh knative-serving",
+    "delta": "0:00:02.852188",
+    "end": "2020-06-26 04:55:23.845250",
+    "rc": 0,
+    "start": "2020-06-26 04:55:20.993062",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Created knative-serving project.",
+    "stdout_lines": [
+        "Created knative-serving project."
+    ]
+}
+2020-06-26 04:55:23,878 p=16 u=root n=ansible | Install Knative Serving...
+2020-06-26 04:55:26,693 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/kabanero/templates/knative.yaml",
+    "delta": "0:00:02.623680",
+    "end": "2020-06-26 04:55:26.664018",
+    "rc": 0,
+    "start": "2020-06-26 04:55:24.040338",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "knativeserving.operator.knative.dev/knative-serving created",
+    "stdout_lines": [
+        "knativeserving.operator.knative.dev/knative-serving created"
+    ]
+}
+2020-06-26 04:55:26,697 p=16 u=root n=ansible | Check For Knative Serving...
+2020-06-26 04:55:28,518 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:55:36,377 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:55:44,197 p=16 u=root n=ansible |   Retrying... (3 of 41)
+2020-06-26 04:55:52,057 p=16 u=root n=ansible |   Retrying... (4 of 41)
+2020-06-26 04:55:59,872 p=16 u=root n=ansible |   Retrying... (5 of 41)
+2020-06-26 04:56:07,835 p=16 u=root n=ansible |   Retrying... (6 of 41)
+2020-06-26 04:56:15,627 p=16 u=root n=ansible |   Retrying... (7 of 41)
+2020-06-26 04:56:23,449 p=16 u=root n=ansible |   Retrying... (8 of 41)
+2020-06-26 04:56:31,291 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 9,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_resource_ready.sh knative-serving knativeserving.operator.knative.dev/knative-serving",
+    "delta": "0:00:01.694395",
+    "end": "2020-06-26 04:56:31.263816",
+    "rc": 0,
+    "start": "2020-06-26 04:56:29.569421",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "The knativeserving.operator.knative.dev/knative-serving resource is ready.",
+    "stdout_lines": [
+        "The knativeserving.operator.knative.dev/knative-serving resource is ready."
+    ]
+}
+2020-06-26 04:56:31,296 p=16 u=root n=ansible | Check Knative Serving Owner...
+2020-06-26 04:56:33,219 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc -n knative-serving get knativeserving.operator.knative.dev knative-serving -o=jsonpath='{.metadata.ownerReferences}'",
+    "delta": "0:00:01.730981",
+    "end": "2020-06-26 04:56:33.191802",
+    "rc": 0,
+    "start": "2020-06-26 04:56:31.460821",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:56:33,224 p=16 u=root n=ansible | Perform Knative Serving Update...
+2020-06-26 04:56:33,244 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:56:33,248 p=16 u=root n=ansible | Switch To Tekton Pipelines Project...
+2020-06-26 04:56:36,093 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh tekton-pipelines",
+    "delta": "0:00:02.656870",
+    "end": "2020-06-26 04:56:36.068504",
+    "rc": 0,
+    "start": "2020-06-26 04:56:33.411634",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Created tekton-pipelines project.",
+    "stdout_lines": [
+        "Created tekton-pipelines project."
+    ]
+}
+2020-06-26 04:56:36,099 p=16 u=root n=ansible | Create Tekton Triggers Role...
+2020-06-26 04:56:38,074 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/tekton/templates/triggers-role.yaml",
+    "delta": "0:00:01.791731",
+    "end": "2020-06-26 04:56:38.050325",
+    "rc": 0,
+    "start": "2020-06-26 04:56:36.258594",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "role.rbac.authorization.k8s.io/kabanero-trigger-role created",
+    "stdout_lines": [
+        "role.rbac.authorization.k8s.io/kabanero-trigger-role created"
+    ]
+}
+2020-06-26 04:56:38,079 p=16 u=root n=ansible | Install Tekton Webhooks Extension...
+2020-06-26 04:56:42,327 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "sed \"s/{openshift_master_default_subdomain}/dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud/\" /installer/playbook/roles/tekton/templates/openshift-tekton-webhooks-extension-release.yaml | oc apply -f -",
+    "delta": "0:00:04.058827",
+    "end": "2020-06-26 04:56:42.300244",
+    "rc": 0,
+    "start": "2020-06-26 04:56:38.241417",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "serviceaccount/tekton-webhooks-extension created\nserviceaccount/tekton-webhooks-extension-eventlistener created\nrole.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created\nclusterrole.rbac.authorization.k8s.io/tekton-triggers-minimal created\nclusterrole.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal-cluster-powers created\nrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created\nclusterrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-eventlistener-minimal created\nclusterrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal-cluster-powers created\nservice/tekton-webhooks-extension-validator created\nservice/webhooks-extension created\ndeployment.apps/tekton-webhooks-extension-validator created\ndeployment.apps/webhooks-extension created\ntask.tekton.dev/monitor-task created\ntriggerbinding.tekton.dev/monitor-task-github-binding created\ntriggerbinding.tekton.dev/monitor-task-gitlab-binding created\ntriggertemplate.tekton.dev/monitor-task-template created",
+    "stdout_lines": [
+        "serviceaccount/tekton-webhooks-extension created",
+        "serviceaccount/tekton-webhooks-extension-eventlistener created",
+        "role.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created",
+        "clusterrole.rbac.authorization.k8s.io/tekton-triggers-minimal created",
+        "clusterrole.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal-cluster-powers created",
+        "rolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal created",
+        "clusterrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-eventlistener-minimal created",
+        "clusterrolebinding.rbac.authorization.k8s.io/tekton-webhooks-extension-minimal-cluster-powers created",
+        "service/tekton-webhooks-extension-validator created",
+        "service/webhooks-extension created",
+        "deployment.apps/tekton-webhooks-extension-validator created",
+        "deployment.apps/webhooks-extension created",
+        "task.tekton.dev/monitor-task created",
+        "triggerbinding.tekton.dev/monitor-task-github-binding created",
+        "triggerbinding.tekton.dev/monitor-task-gitlab-binding created",
+        "triggertemplate.tekton.dev/monitor-task-template created"
+    ]
+}
+2020-06-26 04:56:42,332 p=16 u=root n=ansible | Check For Tekton Webhooks Extension...
+2020-06-26 04:56:43,736 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:56:51,071 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_loop_var": "item",
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh tekton-pipelines app=webhooks-extension webhooks-extension",
+    "delta": "0:00:01.181391",
+    "end": "2020-06-26 04:56:51.042775",
+    "item": "webhooks-extension",
+    "rc": 0,
+    "start": "2020-06-26 04:56:49.861384",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All webhooks-extension pods are running.",
+    "stdout_lines": [
+        "All webhooks-extension pods are running."
+    ]
+}
+2020-06-26 04:56:51,072 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "msg": "All items completed",
+    "results": [
+        {
+            "ansible_loop_var": "item",
+            "attempts": 2,
+            "changed": false,
+            "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh tekton-pipelines app=webhooks-extension webhooks-extension",
+            "delta": "0:00:01.181391",
+            "end": "2020-06-26 04:56:51.042775",
+            "failed": false,
+            "invocation": {
+                "module_args": {
+                    "_raw_params": "/installer/playbook/../scripts/common/check_pods_by_label.sh tekton-pipelines app=webhooks-extension webhooks-extension",
+                    "_uses_shell": true,
+                    "argv": null,
+                    "chdir": null,
+                    "creates": null,
+                    "executable": null,
+                    "removes": null,
+                    "stdin": null,
+                    "stdin_add_newline": true,
+                    "strip_empty_ends": true,
+                    "warn": true
+                }
+            },
+            "item": "webhooks-extension",
+            "rc": 0,
+            "start": "2020-06-26 04:56:49.861384",
+            "stderr": "",
+            "stderr_lines": [],
+            "stdout": "All webhooks-extension pods are running.",
+            "stdout_lines": [
+                "All webhooks-extension pods are running."
+            ]
+        }
+    ]
+}
+2020-06-26 04:56:51,077 p=16 u=root n=ansible | Install Tekton Dashboard...
+2020-06-26 04:56:54,230 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/tekton/templates/openshift-tekton-dashboard-release.yaml",
+    "delta": "0:00:02.964984",
+    "end": "2020-06-26 04:56:54.203968",
+    "rc": 0,
+    "start": "2020-06-26 04:56:51.238984",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "customresourcedefinition.apiextensions.k8s.io/extensions.dashboard.tekton.dev created\nserviceaccount/tekton-dashboard created\nclusterrole.rbac.authorization.k8s.io/tekton-dashboard-minimal created\nclusterrolebinding.rbac.authorization.k8s.io/tekton-dashboard-minimal created\nservice/tekton-dashboard created\nservice/tekton-dashboard-internal created\ndeployment.apps/tekton-dashboard created\nroute.route.openshift.io/tekton-dashboard created\npipeline.tekton.dev/pipeline0 created\ntask.tekton.dev/pipeline0-task created",
+    "stdout_lines": [
+        "customresourcedefinition.apiextensions.k8s.io/extensions.dashboard.tekton.dev created",
+        "serviceaccount/tekton-dashboard created",
+        "clusterrole.rbac.authorization.k8s.io/tekton-dashboard-minimal created",
+        "clusterrolebinding.rbac.authorization.k8s.io/tekton-dashboard-minimal created",
+        "service/tekton-dashboard created",
+        "service/tekton-dashboard-internal created",
+        "deployment.apps/tekton-dashboard created",
+        "route.route.openshift.io/tekton-dashboard created",
+        "pipeline.tekton.dev/pipeline0 created",
+        "task.tekton.dev/pipeline0-task created"
+    ]
+}
+2020-06-26 04:56:54,234 p=16 u=root n=ansible | Check For Tekton Dashboard...
+2020-06-26 04:56:55,592 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:57:02,978 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:57:10,349 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_loop_var": "item",
+    "attempts": 3,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh tekton-pipelines app=tekton-dashboard tekton-dashboard",
+    "delta": "0:00:01.221831",
+    "end": "2020-06-26 04:57:10.320224",
+    "item": "tekton-dashboard",
+    "rc": 0,
+    "start": "2020-06-26 04:57:09.098393",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All tekton-dashboard pods are running.",
+    "stdout_lines": [
+        "All tekton-dashboard pods are running."
+    ]
+}
+2020-06-26 04:57:10,350 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "msg": "All items completed",
+    "results": [
+        {
+            "ansible_loop_var": "item",
+            "attempts": 3,
+            "changed": false,
+            "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh tekton-pipelines app=tekton-dashboard tekton-dashboard",
+            "delta": "0:00:01.221831",
+            "end": "2020-06-26 04:57:10.320224",
+            "failed": false,
+            "invocation": {
+                "module_args": {
+                    "_raw_params": "/installer/playbook/../scripts/common/check_pods_by_label.sh tekton-pipelines app=tekton-dashboard tekton-dashboard",
+                    "_uses_shell": true,
+                    "argv": null,
+                    "chdir": null,
+                    "creates": null,
+                    "executable": null,
+                    "removes": null,
+                    "stdin": null,
+                    "stdin_add_newline": true,
+                    "strip_empty_ends": true,
+                    "warn": true
+                }
+            },
+            "item": "tekton-dashboard",
+            "rc": 0,
+            "start": "2020-06-26 04:57:09.098393",
+            "stderr": "",
+            "stderr_lines": [],
+            "stdout": "All tekton-dashboard pods are running.",
+            "stdout_lines": [
+                "All tekton-dashboard pods are running."
+            ]
+        }
+    ]
+}
+2020-06-26 04:57:10,355 p=16 u=root n=ansible | Set Network Policy...
+2020-06-26 04:57:12,341 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/common/templates/allow-all-network-policy.yaml",
+    "delta": "0:00:01.805146",
+    "end": "2020-06-26 04:57:12.314693",
+    "rc": 0,
+    "start": "2020-06-26 04:57:10.509547",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "networkpolicy.networking.k8s.io/allow-all created",
+    "stdout_lines": [
+        "networkpolicy.networking.k8s.io/allow-all created"
+    ]
+}
+2020-06-26 04:57:12,346 p=16 u=root n=ansible | Get Tekton Dashboard Route...
+2020-06-26 04:57:13,700 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc get route tekton-dashboard --no-headers -o=jsonpath='{.status.ingress[0].host}'",
+    "delta": "0:00:01.164090",
+    "end": "2020-06-26 04:57:13.672060",
+    "rc": 0,
+    "start": "2020-06-26 04:57:12.507970",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "tekton-dashboard-tekton-pipelines.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud",
+    "stdout_lines": [
+        "tekton-dashboard-tekton-pipelines.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    ]
+}
+2020-06-26 04:57:13,705 p=16 u=root n=ansible | set_fact...
+2020-06-26 04:57:13,724 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "tektonDashboard": "https://tekton-dashboard-tekton-pipelines.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    },
+    "changed": false
+}
+2020-06-26 04:57:13,728 p=16 u=root n=ansible | Switch To Kabanero Project...
+2020-06-26 04:57:15,227 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh kabanero",
+    "delta": "0:00:01.315845",
+    "end": "2020-06-26 04:57:15.203158",
+    "rc": 0,
+    "start": "2020-06-26 04:57:13.887313",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Switched to kabanero project.",
+    "stdout_lines": [
+        "Switched to kabanero project."
+    ]
+}
+2020-06-26 04:57:15,232 p=16 u=root n=ansible | Get Default Pull Secret...
+2020-06-26 04:57:15,254 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:57:15,259 p=16 u=root n=ansible | Set Project Pull Secret...
+2020-06-26 04:57:15,283 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:57:15,288 p=16 u=root n=ansible | Generate Cloud Pak For Apps Console Configuration...
+2020-06-26 04:57:15,628 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "checksum": "3f318fb769e2ec7bc8c9ac63bc3187dd532a2f12",
+    "dest": "/tmp/console.yaml",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "e279ec9de01c47f0cca71e16baf8515a",
+    "mode": "0644",
+    "owner": "root",
+    "size": 4848,
+    "src": "/root/.ansible/tmp/ansible-tmp-1593147435.3053-168020017387889/source",
+    "state": "file",
+    "uid": 0
+}
+2020-06-26 04:57:15,633 p=16 u=root n=ansible | Create Pull Secret...
+2020-06-26 04:57:17,287 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_pull_secret.sh kabanero icpa-pull-secret",
+    "delta": "0:00:01.440814",
+    "end": "2020-06-26 04:57:17.259734",
+    "rc": 0,
+    "start": "2020-06-26 04:57:15.818920",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "secret/icpa-pull-secret created",
+    "stdout_lines": [
+        "secret/icpa-pull-secret created"
+    ]
+}
+2020-06-26 04:57:17,292 p=16 u=root n=ansible | Install Cloud Pak For Apps Console...
+2020-06-26 04:57:19,906 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -n kabanero -f /tmp/console.yaml",
+    "delta": "0:00:02.422513",
+    "end": "2020-06-26 04:57:19.881039",
+    "rc": 0,
+    "start": "2020-06-26 04:57:17.458526",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "deployment.apps/icpa-landing created\nservice/icpa-landing created\nroute.route.openshift.io/icpa-landing created\nserviceaccount/icpa-landing created\nclusterrolebinding.rbac.authorization.k8s.io/icpa-landing created\nclusterrole.rbac.authorization.k8s.io/icpa-landing created\nconsolelink.console.openshift.io/icpa-landing-app-menu-link created",
+    "stdout_lines": [
+        "deployment.apps/icpa-landing created",
+        "service/icpa-landing created",
+        "route.route.openshift.io/icpa-landing created",
+        "serviceaccount/icpa-landing created",
+        "clusterrolebinding.rbac.authorization.k8s.io/icpa-landing created",
+        "clusterrole.rbac.authorization.k8s.io/icpa-landing created",
+        "consolelink.console.openshift.io/icpa-landing-app-menu-link created"
+    ]
+}
+2020-06-26 04:57:19,911 p=16 u=root n=ansible | Check For Cloud Pak For Apps Console...
+2020-06-26 04:57:21,310 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:57:28,632 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:57:35,971 p=16 u=root n=ansible |   Retrying... (3 of 41)
+2020-06-26 04:57:43,351 p=16 u=root n=ansible |   Retrying... (4 of 41)
+2020-06-26 04:57:50,668 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_loop_var": "item",
+    "attempts": 5,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh kabanero app=icpa-landing icpa-landing",
+    "delta": "0:00:01.174955",
+    "end": "2020-06-26 04:57:50.636004",
+    "item": "icpa-landing",
+    "rc": 0,
+    "start": "2020-06-26 04:57:49.461049",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All icpa-landing pods are running.",
+    "stdout_lines": [
+        "All icpa-landing pods are running."
+    ]
+}
+2020-06-26 04:57:50,669 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "msg": "All items completed",
+    "results": [
+        {
+            "ansible_loop_var": "item",
+            "attempts": 5,
+            "changed": false,
+            "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh kabanero app=icpa-landing icpa-landing",
+            "delta": "0:00:01.174955",
+            "end": "2020-06-26 04:57:50.636004",
+            "failed": false,
+            "invocation": {
+                "module_args": {
+                    "_raw_params": "/installer/playbook/../scripts/common/check_pods_by_label.sh kabanero app=icpa-landing icpa-landing",
+                    "_uses_shell": true,
+                    "argv": null,
+                    "chdir": null,
+                    "creates": null,
+                    "executable": null,
+                    "removes": null,
+                    "stdin": null,
+                    "stdin_add_newline": true,
+                    "strip_empty_ends": true,
+                    "warn": true
+                }
+            },
+            "item": "icpa-landing",
+            "rc": 0,
+            "start": "2020-06-26 04:57:49.461049",
+            "stderr": "",
+            "stderr_lines": [],
+            "stdout": "All icpa-landing pods are running.",
+            "stdout_lines": [
+                "All icpa-landing pods are running."
+            ]
+        }
+    ]
+}
+2020-06-26 04:57:50,674 p=16 u=root n=ansible | Set Cloud Pak For Apps Console URL...
+2020-06-26 04:57:50,714 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "landingDashboard": "https://ibm-cp-applications.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    },
+    "changed": false
+}
+2020-06-26 04:57:50,719 p=16 u=root n=ansible | Switch To Transformation Advisor Project...
+2020-06-26 04:57:53,504 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh ta",
+    "delta": "0:00:02.592925",
+    "end": "2020-06-26 04:57:53.478730",
+    "rc": 0,
+    "start": "2020-06-26 04:57:50.885805",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Created ta project.",
+    "stdout_lines": [
+        "Created ta project."
+    ]
+}
+2020-06-26 04:57:53,509 p=16 u=root n=ansible | Create Service Account...
+2020-06-26 04:57:55,396 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/transadv/templates/service_account.yaml -n ta",
+    "delta": "0:00:01.702196",
+    "end": "2020-06-26 04:57:55.370153",
+    "rc": 0,
+    "start": "2020-06-26 04:57:53.667957",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "serviceaccount/ta-operator created",
+    "stdout_lines": [
+        "serviceaccount/ta-operator created"
+    ]
+}
+2020-06-26 04:57:55,401 p=16 u=root n=ansible | Create Roles...
+2020-06-26 04:57:57,314 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/transadv/templates/role.yaml -n ta",
+    "delta": "0:00:01.719949",
+    "end": "2020-06-26 04:57:57.287392",
+    "rc": 0,
+    "start": "2020-06-26 04:57:55.567443",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "role.rbac.authorization.k8s.io/ta-operator created",
+    "stdout_lines": [
+        "role.rbac.authorization.k8s.io/ta-operator created"
+    ]
+}
+2020-06-26 04:57:57,319 p=16 u=root n=ansible | Create Role Bindings...
+2020-06-26 04:57:59,335 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/transadv/templates/role_binding.yaml -n ta",
+    "delta": "0:00:01.817400",
+    "end": "2020-06-26 04:57:59.306965",
+    "rc": 0,
+    "start": "2020-06-26 04:57:57.489565",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "rolebinding.rbac.authorization.k8s.io/ta-operator created",
+    "stdout_lines": [
+        "rolebinding.rbac.authorization.k8s.io/ta-operator created"
+    ]
+}
+2020-06-26 04:57:59,340 p=16 u=root n=ansible | Add Security Context Constraints To User...
+2020-06-26 04:58:00,763 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc adm policy add-scc-to-user anyuid system:serviceaccount:ta:default",
+    "delta": "0:00:01.227659",
+    "end": "2020-06-26 04:58:00.737726",
+    "rc": 0,
+    "start": "2020-06-26 04:57:59.510067",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "securitycontextconstraints.security.openshift.io/anyuid added to: [\"system:serviceaccount:ta:default\"]",
+    "stdout_lines": [
+        "securitycontextconstraints.security.openshift.io/anyuid added to: [\"system:serviceaccount:ta:default\"]"
+    ]
+}
+2020-06-26 04:58:00,767 p=16 u=root n=ansible | Configure Transformation Advisor Service Account...
+2020-06-26 04:58:05,156 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc adm policy add-cluster-role-to-user cluster-admin system:serviceaccount:ta:ta-operator",
+    "delta": "0:00:04.192946",
+    "end": "2020-06-26 04:58:05.126754",
+    "rc": 0,
+    "start": "2020-06-26 04:58:00.933808",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "clusterrole.rbac.authorization.k8s.io/cluster-admin added: \"system:serviceaccount:ta:ta-operator\"",
+    "stdout_lines": [
+        "clusterrole.rbac.authorization.k8s.io/cluster-admin added: \"system:serviceaccount:ta:ta-operator\""
+    ]
+}
+2020-06-26 04:58:05,161 p=16 u=root n=ansible | Get Default Pull Secret...
+2020-06-26 04:58:05,187 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:58:05,193 p=16 u=root n=ansible | Set Project Pull Secret...
+2020-06-26 04:58:05,218 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:58:05,223 p=16 u=root n=ansible | Populate Transformation Advisor Operator Configuration...
+2020-06-26 04:58:05,596 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "checksum": "81eaba69a290d2a8c6315a98b0d5eb64e0c4f092",
+    "dest": "/tmp/operator.yaml",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "c3f71ab8963dcd0b81bdaa40c02b3a8a",
+    "mode": "0644",
+    "owner": "root",
+    "size": 3355,
+    "src": "/root/.ansible/tmp/ansible-tmp-1593147485.2430317-193502247097498/source",
+    "state": "file",
+    "uid": 0
+}
+2020-06-26 04:58:05,601 p=16 u=root n=ansible | Create Pull Secret...
+2020-06-26 04:58:07,411 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_pull_secret.sh ta icpa-pull-secret",
+    "delta": "0:00:01.569820",
+    "end": "2020-06-26 04:58:07.385772",
+    "rc": 0,
+    "start": "2020-06-26 04:58:05.815952",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "secret/icpa-pull-secret created",
+    "stdout_lines": [
+        "secret/icpa-pull-secret created"
+    ]
+}
+2020-06-26 04:58:07,417 p=16 u=root n=ansible | Install Transformation Advisor Custom Resource Definition...
+2020-06-26 04:58:09,391 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /installer/playbook/roles/transadv/templates/ta-custom-resource-def.yaml -n ta",
+    "delta": "0:00:01.767886",
+    "end": "2020-06-26 04:58:09.363959",
+    "rc": 0,
+    "start": "2020-06-26 04:58:07.596073",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "customresourcedefinition.apiextensions.k8s.io/transadvs.charts.ta.cloud.ibm.com created",
+    "stdout_lines": [
+        "customresourcedefinition.apiextensions.k8s.io/transadvs.charts.ta.cloud.ibm.com created"
+    ]
+}
+2020-06-26 04:58:09,396 p=16 u=root n=ansible | Install Transformation Advisor Operator...
+2020-06-26 04:58:11,412 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /tmp/operator.yaml -n ta",
+    "delta": "0:00:01.809338",
+    "end": "2020-06-26 04:58:11.385527",
+    "rc": 0,
+    "start": "2020-06-26 04:58:09.576189",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "deployment.apps/ta-operator created",
+    "stdout_lines": [
+        "deployment.apps/ta-operator created"
+    ]
+}
+2020-06-26 04:58:11,417 p=16 u=root n=ansible | Check For Transformation Advisor Operator...
+2020-06-26 04:58:12,857 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:58:20,213 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:58:27,578 p=16 u=root n=ansible |   Retrying... (3 of 41)
+2020-06-26 04:58:34,970 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 4,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh ta name=ta-operator ta-operator",
+    "delta": "0:00:01.244942",
+    "end": "2020-06-26 04:58:34.944273",
+    "rc": 0,
+    "start": "2020-06-26 04:58:33.699331",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All ta-operator pods are running.",
+    "stdout_lines": [
+        "All ta-operator pods are running."
+    ]
+}
+2020-06-26 04:58:34,974 p=16 u=root n=ansible | Switch To Application Navigator Project...
+2020-06-26 04:58:38,014 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh kappnav",
+    "delta": "0:00:02.838550",
+    "end": "2020-06-26 04:58:37.984603",
+    "rc": 0,
+    "start": "2020-06-26 04:58:35.146053",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Created kappnav project.",
+    "stdout_lines": [
+        "Created kappnav project."
+    ]
+}
+2020-06-26 04:58:38,019 p=16 u=root n=ansible | Delete 4.0 Application Navigator Custom Resource...
+2020-06-26 04:58:39,861 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc -n kappnav delete kappnav.kappnav.io --all || true",
+    "delta": "0:00:01.646910",
+    "end": "2020-06-26 04:58:39.835027",
+    "rc": 0,
+    "start": "2020-06-26 04:58:38.188117",
+    "stderr": "error: the server doesn't have a resource type \"kappnav\"",
+    "stderr_lines": [
+        "error: the server doesn't have a resource type \"kappnav\""
+    ],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:58:39,867 p=16 u=root n=ansible | Uninstall 4.0 Application Navigator Operator...
+2020-06-26 04:58:42,185 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc -n kappnav delete --ignore-not-found customresourcedefinition.apiextensions.k8s.io/kappnavs.kappnav.io serviceaccount/helm-operator clusterrole.rbac.authorization.k8s.io/helm-operator clusterrolebinding.rbac.authorization.k8s.io/helm-operator deployment.apps/helm-operator",
+    "delta": "0:00:02.127375",
+    "end": "2020-06-26 04:58:42.158489",
+    "rc": 0,
+    "start": "2020-06-26 04:58:40.031114",
+    "stderr": "warning: deleting cluster-scoped resources, not scoped to the provided namespace",
+    "stderr_lines": [
+        "warning: deleting cluster-scoped resources, not scoped to the provided namespace"
+    ],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:58:42,190 p=16 u=root n=ansible | Get Default Pull Secret...
+2020-06-26 04:58:42,213 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:58:42,218 p=16 u=root n=ansible | Set Project Pull Secret...
+2020-06-26 04:58:42,243 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 04:58:42,248 p=16 u=root n=ansible | Populate Application Navigator Operator Configuration...
+2020-06-26 04:58:42,574 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "checksum": "1dd390dbb46ffbefb904272d3f68d67e3a19911f",
+    "dest": "/tmp/kappnav-operator.yaml",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "a3d70db4850c2dfcfdad02641dccf5b2",
+    "mode": "0644",
+    "owner": "root",
+    "size": 2641,
+    "src": "/root/.ansible/tmp/ansible-tmp-1593147522.2635622-75223263266986/source",
+    "state": "file",
+    "uid": 0
+}
+2020-06-26 04:58:42,579 p=16 u=root n=ansible | Populate Application Navigator Custom Resource...
+2020-06-26 04:58:42,924 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "checksum": "3b2afab77da5fbca1edfda38a74554d232cfc23e",
+    "dest": "/tmp/kappnav.yaml",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "002ea54a262b638e869d3609fdca9f74",
+    "mode": "0644",
+    "owner": "root",
+    "size": 2641,
+    "src": "/root/.ansible/tmp/ansible-tmp-1593147522.5974185-172384998287451/source",
+    "state": "file",
+    "uid": 0
+}
+2020-06-26 04:58:42,929 p=16 u=root n=ansible | Create Pull Secret...
+2020-06-26 04:58:44,617 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_pull_secret.sh kappnav icpa-pull-secret",
+    "delta": "0:00:01.471980",
+    "end": "2020-06-26 04:58:44.592639",
+    "rc": 0,
+    "start": "2020-06-26 04:58:43.120659",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "secret/icpa-pull-secret created",
+    "stdout_lines": [
+        "secret/icpa-pull-secret created"
+    ]
+}
+2020-06-26 04:58:44,622 p=16 u=root n=ansible | Install Application Navigator Operator...
+2020-06-26 04:58:47,207 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /tmp/kappnav-operator.yaml -n kappnav",
+    "delta": "0:00:02.393470",
+    "end": "2020-06-26 04:58:47.179973",
+    "rc": 0,
+    "start": "2020-06-26 04:58:44.786503",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "customresourcedefinition.apiextensions.k8s.io/kappnavs.kappnav.operator.kappnav.io created\nserviceaccount/kappnav-operator created\nclusterrole.rbac.authorization.k8s.io/kappnav-operator created\nclusterrolebinding.rbac.authorization.k8s.io/kappnav-operator created\ndeployment.apps/kappnav-operator created",
+    "stdout_lines": [
+        "customresourcedefinition.apiextensions.k8s.io/kappnavs.kappnav.operator.kappnav.io created",
+        "serviceaccount/kappnav-operator created",
+        "clusterrole.rbac.authorization.k8s.io/kappnav-operator created",
+        "clusterrolebinding.rbac.authorization.k8s.io/kappnav-operator created",
+        "deployment.apps/kappnav-operator created"
+    ]
+}
+2020-06-26 04:58:47,212 p=16 u=root n=ansible | Check For Application Navigator Operator...
+2020-06-26 04:58:48,619 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:58:55,978 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 2,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh kappnav name=kappnav-operator kappnav-operator",
+    "delta": "0:00:01.202329",
+    "end": "2020-06-26 04:58:55.950017",
+    "rc": 0,
+    "start": "2020-06-26 04:58:54.747688",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All kappnav-operator pods are running.",
+    "stdout_lines": [
+        "All kappnav-operator pods are running."
+    ]
+}
+2020-06-26 04:58:55,983 p=16 u=root n=ansible | Install Application Navigator Custom Resource...
+2020-06-26 04:58:58,442 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -f /tmp/kappnav.yaml -n kappnav",
+    "delta": "0:00:02.271169",
+    "end": "2020-06-26 04:58:58.415981",
+    "rc": 0,
+    "start": "2020-06-26 04:58:56.144812",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "kappnav.kappnav.operator.kappnav.io/kappnav created",
+    "stdout_lines": [
+        "kappnav.kappnav.operator.kappnav.io/kappnav created"
+    ]
+}
+2020-06-26 04:58:58,446 p=16 u=root n=ansible | Check For Application Navigator UI...
+2020-06-26 04:58:59,843 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 04:59:07,199 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 04:59:14,546 p=16 u=root n=ansible |   Retrying... (3 of 41)
+2020-06-26 04:59:21,867 p=16 u=root n=ansible |   Retrying... (4 of 41)
+2020-06-26 04:59:29,195 p=16 u=root n=ansible |   Retrying... (5 of 41)
+2020-06-26 04:59:36,535 p=16 u=root n=ansible |   Retrying... (6 of 41)
+2020-06-26 04:59:43,851 p=16 u=root n=ansible |   Retrying... (7 of 41)
+2020-06-26 04:59:51,211 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 8,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh kappnav app.kubernetes.io/component=kappnav-ui kappnav-ui",
+    "delta": "0:00:01.204658",
+    "end": "2020-06-26 04:59:51.181928",
+    "rc": 0,
+    "start": "2020-06-26 04:59:49.977270",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All kappnav-ui pods are running.",
+    "stdout_lines": [
+        "All kappnav-ui pods are running."
+    ]
+}
+2020-06-26 04:59:51,215 p=16 u=root n=ansible | Get Application Navigator UI Route...
+2020-06-26 04:59:52,549 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc get route kappnav-ui-service --no-headers -o=jsonpath='{.status.ingress[0].host}'",
+    "delta": "0:00:01.142726",
+    "end": "2020-06-26 04:59:52.523109",
+    "rc": 0,
+    "start": "2020-06-26 04:59:51.380383",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "kappnav-ui-service-kappnav.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud",
+    "stdout_lines": [
+        "kappnav-ui-service-kappnav.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    ]
+}
+2020-06-26 04:59:52,554 p=16 u=root n=ansible | set_fact...
+2020-06-26 04:59:52,573 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "appnavDashboard": "https://kappnav-ui-service-kappnav.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    },
+    "changed": false
+}
+2020-06-26 04:59:52,577 p=16 u=root n=ansible | Populate Kabanero Custom Resource...
+2020-06-26 04:59:53,720 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "python3 -u /installer/playbook/roles/kabanero/scripts/inject_config.py /installer/playbook/../data/kabanero.yaml /tmp/kabanero.yaml    \n",
+    "delta": "0:00:00.940090",
+    "end": "2020-06-26 04:59:53.695541",
+    "rc": 0,
+    "start": "2020-06-26 04:59:52.755451",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "",
+    "stdout_lines": []
+}
+2020-06-26 04:59:53,725 p=16 u=root n=ansible | Install Kabanero Custom Resource...
+2020-06-26 04:59:55,728 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -n 'kabanero' -f /tmp/kabanero.yaml",
+    "delta": "0:00:01.802351",
+    "end": "2020-06-26 04:59:55.702398",
+    "rc": 0,
+    "start": "2020-06-26 04:59:53.900047",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "kabanero.kabanero.io/kabanero created",
+    "stdout_lines": [
+        "kabanero.kabanero.io/kabanero created"
+    ]
+}
+2020-06-26 04:59:55,732 p=16 u=root n=ansible | Check For Kabanero CLI Service...
+2020-06-26 04:59:57,134 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 05:00:04,608 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 05:00:12,005 p=16 u=root n=ansible |   Retrying... (3 of 41)
+2020-06-26 05:00:19,387 p=16 u=root n=ansible |   Retrying... (4 of 41)
+2020-06-26 05:00:26,707 p=16 u=root n=ansible |   Retrying... (5 of 41)
+2020-06-26 05:00:34,043 p=16 u=root n=ansible |   Retrying... (6 of 41)
+2020-06-26 05:00:41,365 p=16 u=root n=ansible |   Retrying... (7 of 41)
+2020-06-26 05:00:48,729 p=16 u=root n=ansible |   Retrying... (8 of 41)
+2020-06-26 05:00:56,084 p=16 u=root n=ansible |   Retrying... (9 of 41)
+2020-06-26 05:01:03,444 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 10,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh kabanero app=kabanero-cli kabanero-cli",
+    "delta": "0:00:01.201604",
+    "end": "2020-06-26 05:01:03.418358",
+    "rc": 0,
+    "start": "2020-06-26 05:01:02.216754",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All kabanero-cli pods are running.",
+    "stdout_lines": [
+        "All kabanero-cli pods are running."
+    ]
+}
+2020-06-26 05:01:03,448 p=16 u=root n=ansible | Switch To Transformation Advisor Project...
+2020-06-26 05:01:04,925 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/../scripts/common/create_project.sh ta",
+    "delta": "0:00:01.292398",
+    "end": "2020-06-26 05:01:04.900198",
+    "rc": 0,
+    "start": "2020-06-26 05:01:03.607800",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "Switched to ta project.",
+    "stdout_lines": [
+        "Switched to ta project."
+    ]
+}
+2020-06-26 05:01:04,930 p=16 u=root n=ansible | Get Default Pull Secret...
+2020-06-26 05:01:04,957 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 05:01:04,962 p=16 u=root n=ansible | Set Project Pull Secret...
+2020-06-26 05:01:04,988 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 05:01:04,993 p=16 u=root n=ansible | Generate Certificate and Create Transformation Advisor Secret...
+2020-06-26 05:01:06,854 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "/installer/playbook/roles/transadv/scripts/create-secret.sh ta",
+    "delta": "0:00:01.664767",
+    "end": "2020-06-26 05:01:06.827760",
+    "rc": 0,
+    "start": "2020-06-26 05:01:05.162993",
+    "stderr": "Generating a 2048 bit RSA private key\n.................+++\n......................................+++\nwriting new private key to '/tmp/private.pem'\n-----",
+    "stderr_lines": [
+        "Generating a 2048 bit RSA private key",
+        ".................+++",
+        "......................................+++",
+        "writing new private key to '/tmp/private.pem'",
+        "-----"
+    ],
+    "stdout": "secret/transformation-advisor-secret created",
+    "stdout_lines": [
+        "secret/transformation-advisor-secret created"
+    ]
+}
+2020-06-26 05:01:06,858 p=16 u=root n=ansible | Load Generated Transformation Advisor Certificate...
+2020-06-26 05:01:06,893 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "taGeneratedCaCert": "-----BEGIN CERTIFICATE-----\nMIIDgTCCAmmgAwIBAgIJAM3EKq5j87LrMA0GCSqGSIb3DQEBCwUAMFcxCzAJBgNV\nBAYTAklFMQ0wCwYDVQQIDARDb3JrMQ0wCwYDVQQHDARDb3JrMQwwCgYDVQQKDANJ\nQk0xHDAaBgNVBAMME2ludGVybmFsLnRhLmlibS5jb20wHhcNMjAwNjI2MDUwMTA2\nWhcNMjIwNjI2MDUwMTA2WjBXMQswCQYDVQQGEwJJRTENMAsGA1UECAwEQ29yazEN\nMAsGA1UEBwwEQ29yazEMMAoGA1UECgwDSUJNMRwwGgYDVQQDDBNpbnRlcm5hbC50\nYS5pYm0uY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx+ZQiAE+\nHK+d3qTO29vZSF938HQiw3yNp+bNLJy+vk/y5srtnbsvBPsFjlSBh45kREXRpVfu\nFwjzz1AAb6qNdF6IsAoUqhCG9VHgiD4zTLEBC3A3OFOM58iSD1cLubzjgT9O/mei\nIBE2rowgzVynIxfMSEEu57WlmO8vut4I2+dUArBEEBxCbWZfuoMTWYQOW6Y+vK1C\nSRgouwMIaxA8gRtnef2icXm2Fm/RzZ7z0rcbUTMI22AfITc4LP0Yl7ZhpxId7/oH\n+7aPQg1iJzGU8TBmCmcD764uhfX1703sCptc8ZEOv5JolsTTCQzCJ1cLniddsbyb\nJSBsXyFHKjQF5QIDAQABo1AwTjAdBgNVHQ4EFgQUdeAxjlWqtb8swR2ON/Y/U2Hu\nWdkwHwYDVR0jBBgwFoAUdeAxjlWqtb8swR2ON/Y/U2HuWdkwDAYDVR0TBAUwAwEB\n/zANBgkqhkiG9w0BAQsFAAOCAQEANffvO/bHR/eVJooyeasO7CXdx7NfpLu3w2GT\n+Bxyo+8GyJBoEOlKHLM5pRxo8gREQKkhZIaQfV8hciPPBNOcXDe37nvyYBYFIZgl\npHxAHQdL3dh2Hi+PgQnx4j6uFbbAISjwgirJDFxRZlcSK+m0am/EmJiaE9t1PZIj\ngd7L2iiu2xfAInx2Mfo5gYlyeyj+KGODBsD0RRCFUt2pVPShkpPAwEdxzaPV0533\nANrXT+wCFyf58lWbyiLMPZg2B3AA8wTDBUtMEe8AdNRzsDiZFmRq6FwZzCdUA1IJ\njjbKKB+Ggnf0am+/O0sr+g7GvodJD72iTta26wVvL1It/4+fOQ==\n-----END CERTIFICATE-----"
+    },
+    "changed": false
+}
+2020-06-26 05:01:06,897 p=16 u=root n=ansible | Populate Transformation Advisor Custom Resource...
+2020-06-26 05:01:07,262 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "checksum": "6de439c374a7fbbbcc2542b9859ca2c7882e913d",
+    "dest": "/tmp/transadv.yaml",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "6182b4c005e0507335b58f5d804ebb1d",
+    "mode": "0644",
+    "owner": "root",
+    "size": 5640,
+    "src": "/root/.ansible/tmp/ansible-tmp-1593147666.92289-39269636268647/source",
+    "state": "file",
+    "uid": 0
+}
+2020-06-26 05:01:07,267 p=16 u=root n=ansible | Load Transformation Advisor Custom Resource...
+2020-06-26 05:01:07,315 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "ta_cr": {
+            "apiVersion": "charts.ta.cloud.ibm.com/v1",
+            "kind": "TransAdv",
+            "metadata": {
+                "labels": {
+                    "app.kubernetes.io/instance": "ta-instance",
+                    "app.kubernetes.io/managed-by": "helm",
+                    "app.kubernetes.io/name": "ta-operator",
+                    "release": "operator"
+                },
+                "name": "ta"
+            },
+            "spec": {
+                "authentication": {
+                    "disabled": {
+                        "liberty": false,
+                        "ui": false
+                    },
+                    "ocp": {
+                        "apiEndpoint": "https://c107-e.us-south.containers.cloud.ibm.com:30986",
+                        "authIssuerEndpoint": "https://c107-e.us-south.containers.cloud.ibm.com:31635",
+                        "secretName": "transformation-advisor-secret"
+                    },
+                    "oidc": {
+                        "clientId": "ta-ui",
+                        "clientSecret": "aaAfaa3f5F8afDf2Db00A50A056F649c74C5A2f0",
+                        "endpointPort": "31635"
+                    }
+                },
+                "couchdb": {
+                    "image": "cp.icr.io/cp/icpa/transadv-db:2.0.5",
+                    "imagePullSecret": "icpa-pull-secret",
+                    "livenessProbe": {
+                        "failureThreshold": 6,
+                        "initialDelaySeconds": 60,
+                        "periodSeconds": 5,
+                        "timeoutSeconds": 3
+                    },
+                    "persistence": {
+                        "accessMode": "ReadWriteMany",
+                        "enabled": true,
+                        "existingClaim": "",
+                        "size": "8Gi",
+                        "storageClassName": "ibmc-block-gold",
+                        "supplementalGroups": [],
+                        "useDynamicProvisioning": true
+                    },
+                    "readinessProbe": {
+                        "failureThreshold": 6,
+                        "initialDelaySeconds": 5,
+                        "periodSeconds": 5,
+                        "timeoutSeconds": 3
+                    },
+                    "resources": {
+                        "limits": {
+                            "cpu": "16000m",
+                            "memory": "8Gi"
+                        },
+                        "requests": {
+                            "cpu": "500m",
+                            "memory": "1Gi"
+                        }
+                    }
+                },
+                "demo": {
+                    "enabled": true
+                },
+                "networkPolicy": {
+                    "enabled": true
+                },
+                "route": {
+                    "enabled": true,
+                    "hostname": "ta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+                },
+                "tls": {
+                    "caCert": "-----BEGIN CERTIFICATE-----\nMIIDgTCCAmmgAwIBAgIJAM3EKq5j87LrMA0GCSqGSIb3DQEBCwUAMFcxCzAJBgNV\nBAYTAklFMQ0wCwYDVQQIDARDb3JrMQ0wCwYDVQQHDARDb3JrMQwwCgYDVQQKDANJ\nQk0xHDAaBgNVBAMME2ludGVybmFsLnRhLmlibS5jb20wHhcNMjAwNjI2MDUwMTA2\nWhcNMjIwNjI2MDUwMTA2WjBXMQswCQYDVQQGEwJJRTENMAsGA1UECAwEQ29yazEN\nMAsGA1UEBwwEQ29yazEMMAoGA1UECgwDSUJNMRwwGgYDVQQDDBNpbnRlcm5hbC50\nYS5pYm0uY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAx+ZQiAE+\nHK+d3qTO29vZSF938HQiw3yNp+bNLJy+vk/y5srtnbsvBPsFjlSBh45kREXRpVfu\nFwjzz1AAb6qNdF6IsAoUqhCG9VHgiD4zTLEBC3A3OFOM58iSD1cLubzjgT9O/mei\nIBE2rowgzVynIxfMSEEu57WlmO8vut4I2+dUArBEEBxCbWZfuoMTWYQOW6Y+vK1C\nSRgouwMIaxA8gRtnef2icXm2Fm/RzZ7z0rcbUTMI22AfITc4LP0Yl7ZhpxId7/oH\n+7aPQg1iJzGU8TBmCmcD764uhfX1703sCptc8ZEOv5JolsTTCQzCJ1cLniddsbyb\nJSBsXyFHKjQF5QIDAQABo1AwTjAdBgNVHQ4EFgQUdeAxjlWqtb8swR2ON/Y/U2Hu\nWdkwHwYDVR0jBBgwFoAUdeAxjlWqtb8swR2ON/Y/U2HuWdkwDAYDVR0TBAUwAwEB\n/zANBgkqhkiG9w0BAQsFAAOCAQEANffvO/bHR/eVJooyeasO7CXdx7NfpLu3w2GT\n+Bxyo+8GyJBoEOlKHLM5pRxo8gREQKkhZIaQfV8hciPPBNOcXDe37nvyYBYFIZgl\npHxAHQdL3dh2Hi+PgQnx4j6uFbbAISjwgirJDFxRZlcSK+m0am/EmJiaE9t1PZIj\ngd7L2iiu2xfAInx2Mfo5gYlyeyj+KGODBsD0RRCFUt2pVPShkpPAwEdxzaPV0533\nANrXT+wCFyf58lWbyiLMPZg2B3AA8wTDBUtMEe8AdNRzsDiZFmRq6FwZzCdUA1IJ\njjbKKB+Ggnf0am+/O0sr+g7GvodJD72iTta26wVvL1It/4+fOQ==\n-----END CERTIFICATE-----\n",
+                    "enabled": true
+                },
+                "transadv": {
+                    "image": "cp.icr.io/cp/icpa/transadv-server:2.0.5",
+                    "imagePullSecret": "icpa-pull-secret",
+                    "livenessProbe": {
+                        "failureThreshold": 6,
+                        "initialDelaySeconds": 60,
+                        "periodSeconds": 5,
+                        "timeoutSeconds": 3
+                    },
+                    "logLevel": "info",
+                    "publicUrl": "https://ta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud",
+                    "readinessProbe": {
+                        "failureThreshold": 6,
+                        "initialDelaySeconds": 60,
+                        "periodSeconds": 5,
+                        "timeoutSeconds": 3
+                    },
+                    "resources": {
+                        "limits": {
+                            "cpu": "16000m",
+                            "memory": "4Gi"
+                        },
+                        "requests": {
+                            "cpu": "500m",
+                            "memory": "1Gi"
+                        }
+                    }
+                },
+                "transadvui": {
+                    "image": "cp.icr.io/cp/icpa/transadv-ui:2.0.5",
+                    "imagePullSecret": "icpa-pull-secret",
+                    "livenessProbe": {
+                        "failureThreshold": 6,
+                        "initialDelaySeconds": 60,
+                        "periodSeconds": 30,
+                        "timeoutSeconds": 5
+                    },
+                    "logLevel": "info",
+                    "readinessProbe": {
+                        "failureThreshold": 6,
+                        "initialDelaySeconds": 5,
+                        "periodSeconds": 30,
+                        "timeoutSeconds": 5
+                    },
+                    "resources": {
+                        "limits": {
+                            "cpu": "16000m",
+                            "memory": "4Gi"
+                        },
+                        "requests": {
+                            "cpu": "500m",
+                            "memory": "1Gi"
+                        }
+                    },
+                    "useSecureCookie": "true"
+                }
+            }
+        }
+    },
+    "ansible_included_var_files": [
+        "/tmp/transadv.yaml"
+    ],
+    "changed": false
+}
+2020-06-26 05:01:07,320 p=16 u=root n=ansible | Check Transformation Advisor Custom Resource...
+2020-06-26 05:01:07,360 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+2020-06-26 05:01:07,366 p=16 u=root n=ansible | Install Transformation Advisor Custom Resource...
+2020-06-26 05:01:09,551 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc apply -n ta -f /tmp/transadv.yaml",
+    "delta": "0:00:01.998123",
+    "end": "2020-06-26 05:01:09.528413",
+    "rc": 0,
+    "start": "2020-06-26 05:01:07.530290",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "transadv.charts.ta.cloud.ibm.com/ta created",
+    "stdout_lines": [
+        "transadv.charts.ta.cloud.ibm.com/ta created"
+    ]
+}
+2020-06-26 05:01:09,556 p=16 u=root n=ansible | Check For Transformation Advisor UI...
+2020-06-26 05:01:10,943 p=16 u=root n=ansible |   Retrying... (1 of 41)
+2020-06-26 05:01:18,313 p=16 u=root n=ansible |   Retrying... (2 of 41)
+2020-06-26 05:01:25,703 p=16 u=root n=ansible |   Retrying... (3 of 41)
+2020-06-26 05:01:33,076 p=16 u=root n=ansible |   Retrying... (4 of 41)
+2020-06-26 05:01:40,377 p=16 u=root n=ansible |   Retrying... (5 of 41)
+2020-06-26 05:01:47,726 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "attempts": 6,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh ta chart=ibm-transadv-dev-2.0.5,component=ui ui",
+    "delta": "0:00:01.194678",
+    "end": "2020-06-26 05:01:47.697823",
+    "rc": 0,
+    "start": "2020-06-26 05:01:46.503145",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "All ui pods are running.",
+    "stdout_lines": [
+        "All ui pods are running."
+    ]
+}
+2020-06-26 05:01:47,731 p=16 u=root n=ansible | Check For Transformation Advisor Database...
+2020-06-26 05:01:49,141 p=16 u=root n=ansible |   Retrying... (1 of 21)
+2020-06-26 05:01:56,462 p=16 u=root n=ansible |   Retrying... (2 of 21)
+2020-06-26 05:02:03,857 p=16 u=root n=ansible |   Retrying... (3 of 21)
+2020-06-26 05:02:11,181 p=16 u=root n=ansible |   Retrying... (4 of 21)
+2020-06-26 05:02:18,522 p=16 u=root n=ansible |   Retrying... (5 of 21)
+2020-06-26 05:02:25,864 p=16 u=root n=ansible |   Retrying... (6 of 21)
+2020-06-26 05:02:33,191 p=16 u=root n=ansible |   Retrying... (7 of 21)
+2020-06-26 05:02:40,562 p=16 u=root n=ansible |   Retrying... (8 of 21)
+2020-06-26 05:02:47,880 p=16 u=root n=ansible |   Retrying... (9 of 21)
+2020-06-26 05:02:55,242 p=16 u=root n=ansible |   Retrying... (10 of 21)
+2020-06-26 05:03:02,921 p=16 u=root n=ansible |   Retrying... (11 of 21)
+2020-06-26 05:03:10,346 p=16 u=root n=ansible |   Retrying... (12 of 21)
+2020-06-26 05:03:17,712 p=16 u=root n=ansible |   Retrying... (13 of 21)
+2020-06-26 05:03:25,081 p=16 u=root n=ansible |   Retrying... (14 of 21)
+2020-06-26 05:03:32,378 p=16 u=root n=ansible |   Retrying... (15 of 21)
+2020-06-26 05:03:39,714 p=16 u=root n=ansible |   Retrying... (16 of 21)
+2020-06-26 05:03:47,088 p=16 u=root n=ansible |   Retrying... (17 of 21)
+2020-06-26 05:03:54,413 p=16 u=root n=ansible |   Retrying... (18 of 21)
+2020-06-26 05:04:01,791 p=16 u=root n=ansible |   Retrying... (19 of 21)
+2020-06-26 05:04:09,172 p=16 u=root n=ansible |   Retrying... (20 of 21)
+2020-06-26 05:04:16,525 p=16 u=root n=ansible | 127.0.0.1 failed: {
+    "attempts": 20,
+    "changed": false,
+    "cmd": "/installer/playbook/../scripts/common/check_pods_by_label.sh ta chart=ibm-transadv-dev-2.0.5,component=couchdb couchdb",
+    "delta": "0:00:01.208038",
+    "end": "2020-06-26 05:04:16.498027",
+    "msg": "non-zero return code",
+    "rc": 1,
+    "start": "2020-06-26 05:04:15.289989",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "The couchdb pods are not running. There might a problem that is preventing the pods from starting, or they might require additional time to start.\n\nRun the following commands to examine the status of the pods:\noc -n \"ta\" describe pod \"ta-4hd0yl-couchdb-67cc866cfc-jfknl\"\noc -n \"ta\" logs \"ta-4hd0yl-couchdb-67cc866cfc-jfknl\" --all-containers\n\nOnce the problem is resolved or the pods start running, re-run the installer to complete the installation process.",
+    "stdout_lines": [
+        "The couchdb pods are not running. There might a problem that is preventing the pods from starting, or they might require additional time to start.",
+        "",
+        "Run the following commands to examine the status of the pods:",
+        "oc -n \"ta\" describe pod \"ta-4hd0yl-couchdb-67cc866cfc-jfknl\"",
+        "oc -n \"ta\" logs \"ta-4hd0yl-couchdb-67cc866cfc-jfknl\" --all-containers",
+        "",
+        "Once the problem is resolved or the pods start running, re-run the installer to complete the installation process."
+    ]
+}
+2020-06-26 05:04:16,529 p=16 u=root n=ansible | Check For Transformation Advisor Server...
+2020-06-26 05:04:16,556 p=16 u=root n=ansible | 127.0.0.1 skipped: {
+    "changed": false,
+    "skip_reason": "Conditional result was False"
+}
+2020-06-26 05:04:16,560 p=16 u=root n=ansible | Get Transformation Advisor UI Route...
+2020-06-26 05:04:17,926 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "cmd": "oc -n ta get route -o jsonpath='{range .items[*]}{@.metadata.name}{\":\"}{@.status.ingress[0].host}{\"\\n\"}{end}' | grep ta-.*-ui-route | cut -d':' -f2",
+    "delta": "0:00:01.178928",
+    "end": "2020-06-26 05:04:17.899910",
+    "rc": 0,
+    "start": "2020-06-26 05:04:16.720982",
+    "stderr": "",
+    "stderr_lines": [],
+    "stdout": "ta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud",
+    "stdout_lines": [
+        "ta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    ]
+}
+2020-06-26 05:04:17,930 p=16 u=root n=ansible | set_fact...
+2020-06-26 05:04:17,960 p=16 u=root n=ansible | 127.0.0.1 ok: {
+    "ansible_facts": {
+        "transadvDashboard": "https://ta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud"
+    },
+    "changed": false
+}
+2020-06-26 05:04:17,965 p=16 u=root n=ansible | Mark Installation Complete...
+2020-06-26 05:04:18,296 p=16 u=root n=ansible | 127.0.0.1 done: {
+    "changed": true,
+    "checksum": "36e2ba75544eaefe2bb52c543d7788ad253b3122",
+    "dest": "/tmp/post-install.txt",
+    "gid": 0,
+    "group": "root",
+    "md5sum": "8f1d44f6feb5335fb6047e1ebe86b7e0",
+    "mode": "0644",
+    "owner": "root",
+    "size": 736,
+    "src": "/root/.ansible/tmp/ansible-tmp-1593147857.9851027-38761001106539/source",
+    "state": "file",
+    "uid": 0
+}
+2020-06-26 05:04:18,299 p=16 u=root n=ansible | - Play recap -
+2020-06-26 05:04:18,299 p=16 u=root n=ansible |   127.0.0.1                  : ok=127  changed=61   unreachable=0    failed=0    rescued=0    ignored=1   
+2020-06-26 05:04:18,299 p=16 u=root n=ansible | Install successful *************************************************************
+2020-06-26 05:04:18,300 p=16 u=root n=ansible | Installation complete.
+
+Please see https://ibm-cp-applications.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud to get started and learn more about IBM Cloud Pak for Applications 4.1.1.
+
+The pipelines dashboard is available at: https://tekton-dashboard-tekton-pipelines.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud
+
+The IBM Transformation Advisor UI is available at: https://ta-apps.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud
+
+The IBM Application Navigator UI is available at: https://kappnav-ui-service-kappnav.dte-ocp4-x0ev7k-915b3b336cabec458a7c7ec2aa7c625f-0000.us-south.containers.appdomain.cloud
+
