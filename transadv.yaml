@@ -10,7 +10,7 @@ metadata:
 spec:
 
   demo:
-    enabled: false
+    enabled: true
 
   networkPolicy:
     enabled: true
@@ -86,7 +86,7 @@ spec:
       existingClaim: ""
 
       ##incase of minikube hostpath volume set to MANUAL
-      storageClassName: ""
+      storageClassName: "ibmc-block-gold"
 
       supplementalGroups: []
   # Default values for transformation advisor.
