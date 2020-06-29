@@ -10,7 +10,7 @@ spec:
   adminCredentialSecretRef: admin-credential
   roksEnabled: false
   dedicatedNodes:
-  - your-worker-node
+  - 10.221.103.16
   services:
   - name: app-monitoring
     state: present
